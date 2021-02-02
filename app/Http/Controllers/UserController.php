@@ -11,7 +11,7 @@ class UserController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['search', 'detail']]);
+        $this->middleware('auth:api', ['except' => ['search', 'detail', 'praktisi']]);
     }
 
     function search(Request $request, User $user)
@@ -29,7 +29,26 @@ class UserController extends BaseController
             $user->where('name', 'LIKE', '%' . $name . '%');
         }
 
-        $result = $user->orderBy("name", "ASC")->limit(10)->get();
+        $result = $user->orderBy("name", "ASC")->limit(100)->get();
+        if ($result->count() > 0) {
+            return response()->json($result);
+        } else {
+            return response(["message" => "Peruqyah tidak ditemukan"], 500);
+        }
+    }
+
+    function praktisi(Request $request, User $user)
+    {
+        $user = $user->newQuery();
+        $user->select("id", "name", "address");
+        if ($request->has("province")) {
+            $user->where('province', $request->input('province'));
+        }
+        if ($request->has("city")) {
+            $user->where('city', $request->input('city'));
+        }
+
+        $result = $user->inRandomOrder()->get();
         if ($result->count() > 0) {
             return response()->json($result);
         } else {

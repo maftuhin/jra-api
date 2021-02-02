@@ -19,6 +19,7 @@ class AdminController extends BaseController
         $admin = Admin::select("administratives.*", "users.id", "users.name")
             ->join("users", "administratives.member", "users.id")
             ->where("administratives.main", 1)
+            ->orderBy("administratives.sort", "ASC")
             ->get();
         if ($admin->count() > 0) {
             return response()->json($admin);
@@ -33,6 +34,7 @@ class AdminController extends BaseController
         $admin = Admin::select("administratives.*", "users.id", "users.name")
             ->join("users", "administratives.member", "users.id")
             ->where("administratives.province", $id)
+            ->orderBy("administratives.sort", "ASC")
             ->get();
         if ($admin->count() > 0) {
             return response()->json($admin);
@@ -47,6 +49,7 @@ class AdminController extends BaseController
         $admin = Admin::select("administratives.*", "users.id", "users.name")
             ->join("users", "administratives.member", "users.id")
             ->where("administratives.city", $id)
+            ->orderBy("administratives.sort", "ASC")
             ->get();
         if ($admin->count() > 0) {
             return response()->json($admin);

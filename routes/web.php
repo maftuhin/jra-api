@@ -35,6 +35,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->post('update', 'UserController@update');
     $router->post('password', 'UserController@password');
     $router->get('me', 'UserController@me');
+    $router->post('praktisi', 'UserController@praktisi');
 });
 
 $router->group(['prefix' => 'article'], function () use ($router) {
