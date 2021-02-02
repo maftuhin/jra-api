@@ -13,7 +13,7 @@ class RegionController extends Controller
     public function getProvinsi()
     {
         $data = DB::table("wilayah_provinsi")
-            ->select(["id", "name"])
+            ->select(["id", "name","code"])
             ->orderBy("name", "ASC")->get();
         return response()->json($data, 200);
     }
@@ -21,7 +21,7 @@ class RegionController extends Controller
     public function district()
     {
         $data = DB::table("wilayah_kabupaten")
-            ->select(["id", "provinsi_id as province_id", "name"])
+            ->select(["id", "provinsi_id as province_id", "name","code"])
             ->orderBy("name", "ASC")->get();
         return response()->json($data, 200);
     }
