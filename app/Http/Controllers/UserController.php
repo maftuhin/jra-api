@@ -27,9 +27,15 @@ class UserController extends BaseController
         if ($request->has("name")) {
             $name = $request->input('name');
             $user->where('name', 'LIKE', '%' . $name . '%');
+
+            if ($name != "") {
+                $user->orderBy("name", "ASC");
+            } else {
+                $user->inRandomOrder();
+            }
         }
 
-        $result = $user->orderBy("name", "ASC")->limit(100)->get();
+        $result = $user->limit(100)->get();
         if ($result->count() > 0) {
             return response()->json($result);
         } else {
@@ -46,6 +52,9 @@ class UserController extends BaseController
         }
         if ($request->has("city")) {
             $user->where('city', $request->input('city'));
+        }
+        if ($request->has("district")) {
+            $user->where("districts", $request->input("district"));
         }
 
         $result = $user->inRandomOrder()->get();
@@ -82,6 +91,11 @@ class UserController extends BaseController
         $phone = $request->input("phone");
         $profession = $request->input("profession");
         $skill = $request->input("skill");
+        $birth_place = $request->input("birth_place");
+        $birth_date = $request->input("birth_date");
+        $training_place = $request->input("training_place");
+        $training_date = $request->input("training_date");
+        $phone_visibility = $request->input("phone_visibility");
 
         if ($token != null) {
             $user = User::find($token->id);
@@ -91,6 +105,15 @@ class UserController extends BaseController
             $user->name = $name;
             $user->skill = $skill;
             $user->profession = $profession;
+            $user->birth_place = $birth_place;
+            $user->training_place = $training_place;
+            $user->phone_visibility = $phone_visibility;
+            if ($birth_date != "") {
+                $user->birth_date = $birth_date;
+            }
+            if ($training_date != "") {
+                $user->training_date = $training_date;
+            }
 
             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');

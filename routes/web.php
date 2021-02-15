@@ -44,13 +44,13 @@ $router->group(['prefix' => 'article'], function () use ($router) {
 
 $router->group(['prefix' => 'admin'], function () use ($router) {
     $router->get('pc', 'AdminController@city');
+    $router->get('pac', 'AdminController@district');
     $router->get('pw', 'AdminController@province');
     $router->get('main', 'AdminController@pusat');
 });
 
 $router->group(['prefix' => 'region'], function () use ($router) {
-    $router->get('provinsi', 'RegionController@getProvinsi');
+    $router->get('province', 'RegionController@getProvinsi');
     $router->get('kabupaten', 'RegionController@district');
     $router->get('kecamatan', 'RegionController@getKecamatan');
-    $router->get('kabupaten/{id}', 'RegionController@getKabupaten');
 });
