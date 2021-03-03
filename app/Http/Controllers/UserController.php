@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SkillUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -68,13 +70,27 @@ class UserController extends BaseController
     function detail(Request $request)
     {
         $userId = $request->input("id");
+        $skill = SkillUser::select("skills.skill")
+            ->join("skills", "skills.id", "=", "skill_users.skill")
+            ->where("user", $userId)
+            ->where("status", 1)
+            ->get();
+
         $user = User::where("id", $userId)->first();
+        $user["skills"] = $skill;
         return response()->json($user);
     }
 
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        $skill = SkillUser::select("skills.skill")
+            ->join("skills", "skills.id", "=", "skill_users.skill")
+            ->where("user", $user->id)
+            ->where("status", 1)
+            ->get();
+        $user["skills"] = $skill;
+        return response()->json($user);
     }
 
     function update(Request $request)

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class SkillUser extends Model
 {
 
     /**
@@ -12,16 +12,15 @@ class Admin extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'user'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = [
-        'created_at', 'updated_at', 'created_by', 'updated_by','published_at','member'
-    ];
-
-    protected $table = "administratives";
+    protected $hidden = [];
+    protected $table = "skill_users";
 }

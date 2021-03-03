@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Skill extends Model
 {
 
     /**
@@ -20,8 +20,6 @@ class Admin extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'created_by', 'updated_by','published_at','member'
+        
     ];
-
-    protected $table = "administratives";
 }

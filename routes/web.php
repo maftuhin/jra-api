@@ -54,3 +54,8 @@ $router->group(['prefix' => 'region'], function () use ($router) {
     $router->get('kabupaten', 'RegionController@district');
     $router->get('kecamatan', 'RegionController@getKecamatan');
 });
+
+$router->group(['prefix' => 'skill'], function () use ($router) {
+    $router->get('','SkillController@getSkill');
+    $router->post('update','SkillController@updateSkill');
+});
