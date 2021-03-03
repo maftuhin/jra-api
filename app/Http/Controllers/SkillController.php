@@ -25,7 +25,9 @@ class SkillController extends Controller
 
         foreach ($data as $value) {
             $a = collect($skill)->where("id", $value["id"])->first();
-            $value["status"] = $a["status"];
+            if (isset($a["status"])) {
+                $value["status"] = $a["status"];
+            }
         }
         return response()->json($data);
     }
