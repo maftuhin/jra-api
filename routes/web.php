@@ -40,6 +40,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 
 $router->group(['prefix' => 'article'], function () use ($router) {
     $router->get('', 'ArticleController@index');
+    $router->get('detail/{id}', 'ArticleController@detail');
 });
 
 $router->group(['prefix' => 'admin'], function () use ($router) {

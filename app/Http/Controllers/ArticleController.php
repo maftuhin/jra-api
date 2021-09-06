@@ -14,8 +14,11 @@ class ArticleController extends BaseController
     function index(Request $request)
     {
         $query = $request->input("query");
-        $article = Article::where("title", "LIKE", "%" . $query . "%")->get();
-        return response($article);
+        $type = $request->input("type");
+        $article = Article::where("title", "LIKE", "%" . $query . "%")
+            ->where("type", $type)
+            ->simplePaginate(10);
+        return $article;
     }
 
     public function detail($id)
