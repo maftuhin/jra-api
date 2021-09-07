@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class ArticleController extends BaseController
@@ -13,12 +11,19 @@ class ArticleController extends BaseController
 
     function index(Request $request)
     {
-        $query = $request->input("query");
         $type = $request->input("type");
-        $article = Article::where("title", "LIKE", "%" . $query . "%")
-            ->where("type", $type)
-            ->simplePaginate(10);
-        return $article;
+        $article = Article::select("id", "title")->where("type", $type)
+            ->paginate(10);
+        if ($article->total() > 0) {
+            return response([
+                "data" => $article->items(),
+                "total" => $article->total(),
+                "current_page" => $article->currentPage(),
+                "next_page_url" => $article->nextPageUrl()
+            ]);
+        } else {
+            return response(["message" => "tidak ada data"], 500);
+        }
     }
 
     public function detail($id)
