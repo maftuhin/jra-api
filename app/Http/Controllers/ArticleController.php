@@ -12,7 +12,7 @@ class ArticleController extends BaseController
     function index(Request $request)
     {
         $type = $request->input("type");
-        $article = Article::select("id", "title")->where("type", $type)
+        $article = Article::select("id", "title","image")->where("type", $type)
             ->paginate(10);
         if ($article->total() > 0) {
             return response([
