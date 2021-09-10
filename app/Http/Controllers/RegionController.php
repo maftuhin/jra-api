@@ -39,4 +39,27 @@ class RegionController extends Controller
             ->orderBy("name", "ASC")->get();
         return response()->json($data, 200);
     }
+
+    public function searchCity(Request $request)
+    {
+        $query = $request->input("q");
+        $data = DB::table("wilayah_kabupaten as c")
+            ->select(["c.id", "c.provinsi_id as province_id", "c.name", "c.code","p.name as province"])
+            ->join("wilayah_provinsi as p","p.id","c.provinsi_id")
+            ->where("c.name", "LIKE", "%" . $query . "%")
+            ->where("c.visibility", 1)
+            ->orderBy("c.name", "ASC")
+            ->paginate();
+
+        if ($data->total() > 0) {
+            return response([
+                "data" => $data->items(),
+                "total" => $data->total(),
+                "current_page" => $data->currentPage(),
+                "next_page_url" => $data->nextPageUrl()
+            ]);
+        } else {
+            return response(["message" => "tidak ada data"], 500);
+        }
+    }
 }
