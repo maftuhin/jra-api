@@ -65,3 +65,7 @@ $router->group(['prefix' => 'skill'], function () use ($router) {
     $router->get('','SkillController@getSkill');
     $router->post('update','SkillController@updateSkill');
 });
+
+$router->group(['prefix' => 'banner'], function () use ($router) {
+    $router->get('','BannerController@index');
+});
