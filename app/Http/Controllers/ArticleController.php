@@ -13,7 +13,7 @@ class ArticleController extends BaseController
     {
         $type = $request->input("type");
         $article = Article::select("articles.id", "articles.title", "articles.image")
-            ->join("categories", "categories.id", "articles.type")
+            ->join("categories", "categories.id", "articles.category")
             ->where("categories.code", $type)
             ->paginate(10);
         if ($article->total() > 0) {
