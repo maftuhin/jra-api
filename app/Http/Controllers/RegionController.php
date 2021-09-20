@@ -36,6 +36,7 @@ class RegionController extends Controller
         $data = DB::table("wilayah_kecamatan")
             ->select(["id", "name", "kabupaten_id as city_id", "code"])
             ->where("kabupaten_id", $id)
+            ->where("visibility", 1)
             ->orderBy("name", "ASC")
             ->get();
         return response()->json($data, 200);
