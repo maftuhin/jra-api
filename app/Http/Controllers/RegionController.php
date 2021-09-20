@@ -36,7 +36,8 @@ class RegionController extends Controller
         $data = DB::table("wilayah_kecamatan")
             ->select(["id", "name", "kabupaten_id as city_id", "code"])
             ->where("kabupaten_id", $id)
-            ->orderBy("name", "ASC")->get();
+            ->orderBy("name", "ASC")
+            ->get();
         return response()->json($data, 200);
     }
 
@@ -44,8 +45,8 @@ class RegionController extends Controller
     {
         $query = $request->input("q");
         $data = DB::table("wilayah_kabupaten as c")
-            ->select(["c.id", "c.provinsi_id as province_id", "c.name", "c.code","p.name as province"])
-            ->join("wilayah_provinsi as p","p.id","c.provinsi_id")
+            ->select(["c.id", "c.provinsi_id as province_id", "c.name", "c.code", "p.name as province"])
+            ->join("wilayah_provinsi as p", "p.id", "c.provinsi_id")
             ->where("c.name", "LIKE", "%" . $query . "%")
             ->where("c.visibility", 1)
             ->orderBy("c.name", "ASC")

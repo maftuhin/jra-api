@@ -69,3 +69,7 @@ $router->group(['prefix' => 'skill'], function () use ($router) {
 $router->group(['prefix' => 'banner'], function () use ($router) {
     $router->get('','BannerController@index');
 });
+
+$router->group(['prefix' => 'product'], function () use ($router) {
+    $router->get('','ProductController@index');
+});
