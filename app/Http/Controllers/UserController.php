@@ -19,7 +19,7 @@ class UserController extends BaseController
     function search(Request $request, User $user)
     {
         $user = $user->newQuery();
-        $user->select("id", "name", "address");
+        $user->select("id", "name", "address","gender");
         if ($request->has("province")) {
             $user->where('province', $request->input('province'));
         }
@@ -48,7 +48,7 @@ class UserController extends BaseController
     function praktisi(Request $request, User $user)
     {
         $user = $user->newQuery();
-        $user->select("id", "name", "address");
+        $user->select("id", "name", "address","gender");
         if ($request->has("province")) {
             $user->where('province', $request->input('province'));
         }
