@@ -23,4 +23,10 @@ class ProductController extends BaseController
             return response(["message" => "tidak ada data"], 500);
         }
     }
+
+    function detail($code)
+    {
+        $data = Product::where("code", $code)->first();
+        return response()->json($data, 200);
+    }
 }

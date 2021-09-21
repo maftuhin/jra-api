@@ -31,7 +31,8 @@ class HomeController extends BaseController
         $news = DB::table('news')
             ->select(["id", "title", "image", "link", "created_at"])
             ->orderBy("id", "DESC")
-            ->limit(3)->get();
+            ->limit(10)
+            ->get();
         return response($news);
     }
 }

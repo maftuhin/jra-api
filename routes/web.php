@@ -72,4 +72,5 @@ $router->group(['prefix' => 'banner'], function () use ($router) {
 
 $router->group(['prefix' => 'product'], function () use ($router) {
     $router->get('','ProductController@index');
+    $router->get('detail/{code}','ProductController@detail');
 });
