@@ -29,7 +29,7 @@ class HomeController extends BaseController
     function news()
     {
         $news = DB::table('news')
-            ->select(["id", "title", "image", "link", "created_at"])
+            ->select(["id", "title", "image","type", "link", "created_at"])
             ->orderBy("id", "DESC")
             ->limit(10)
             ->get();

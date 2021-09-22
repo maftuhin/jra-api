@@ -70,6 +70,10 @@ $router->group(['prefix' => 'banner'], function () use ($router) {
     $router->get('','BannerController@index');
 });
 
+$router->group(['prefix' => 'news'], function () use ($router) {
+    $router->get('detail','NewsController@detail');
+});
+
 $router->group(['prefix' => 'product'], function () use ($router) {
     $router->get('','ProductController@index');
     $router->get('detail/{code}','ProductController@detail');

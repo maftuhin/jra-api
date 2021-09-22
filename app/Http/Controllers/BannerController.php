@@ -17,7 +17,7 @@ class BannerController extends BaseController
         
     }
 
-    function index(Request $request, User $user)
+    function index()
     {
         $data = Banner::all();
         return response($data);
