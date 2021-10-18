@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\NewsController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -62,19 +64,20 @@ $router->group(['prefix' => 'search'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'skill'], function () use ($router) {
-    $router->get('','SkillController@getSkill');
-    $router->post('update','SkillController@updateSkill');
+    $router->get('', 'SkillController@getSkill');
+    $router->post('update', 'SkillController@updateSkill');
 });
 
 $router->group(['prefix' => 'banner'], function () use ($router) {
-    $router->get('','BannerController@index');
+    $router->get('', 'BannerController@index');
 });
 
 $router->group(['prefix' => 'news'], function () use ($router) {
-    $router->get('detail','NewsController@detail');
+    $router->get('detail', 'NewsController@detail');
+    $router->get('search', [NewsController::class, 'search']);
 });
 
 $router->group(['prefix' => 'product'], function () use ($router) {
-    $router->get('','ProductController@index');
-    $router->get('detail/{code}','ProductController@detail');
+    $router->get('', 'ProductController@index');
+    $router->get('detail/{code}', 'ProductController@detail');
 });
