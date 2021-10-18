@@ -34,7 +34,7 @@ class NewsController extends BaseController
         $query = $request->input('query');
         $data = DB::table('news')->select(["id", "title", "image", "link", "created_at"])
             ->where('title', 'LIKE', '%' . $query . '%')
-            ->orderBy("name", "ASC")
+            ->orderBy("title", "ASC")
             ->get();
 
         if ($data->count() > 0) {
