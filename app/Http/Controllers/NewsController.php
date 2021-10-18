@@ -35,12 +35,16 @@ class NewsController extends BaseController
         $data = DB::table('news')->select(["id", "title", "image", "type", "link", "created_at"])
             ->where('title', 'LIKE', '%' . $query . '%')
             ->orderBy("title", "ASC")
+            ->limit(30)
             ->get();
 
         if ($data->count() > 0) {
             return response()->json($data);
         } else {
-            return response(["message" => "tidak ada data"], 500);
+            // if ($query == "") {
+                
+            // }
+            return response(["message" => "\".$query.\"\nTidak ada Berita ditemukan"], 500);
         }
     }
 }
