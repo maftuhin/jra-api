@@ -74,7 +74,7 @@ $router->group(['prefix' => 'banner'], function () use ($router) {
 
 $router->group(['prefix' => 'news'], function () use ($router) {
     $router->get('detail', 'NewsController@detail');
-    $router->get('search', [NewsController::class, 'search']);
+    $router->get('search', 'NewsController@search');
 });
 
 $router->group(['prefix' => 'product'], function () use ($router) {
