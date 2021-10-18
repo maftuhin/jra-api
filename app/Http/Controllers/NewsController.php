@@ -34,15 +34,10 @@ class NewsController extends BaseController
         $data = News::select(["id", "title", "image", "link", "created_at"])
             ->where('title', 'LIKE', '%' . $query . '%')
             ->orderBy("id", "DESC")
-            ->paginate();
+            ->get();
 
-        if ($data->total() > 0) {
-            return response([
-                "data" => $data->items(),
-                "total" => $data->total(),
-                "current_page" => $data->currentPage(),
-                "next_page_url" => $data->nextPageUrl()
-            ]);
+        if ($data->count() > 0) {
+            return response()->json($data);
         } else {
             return response(["message" => "tidak ada data"], 500);
         }
