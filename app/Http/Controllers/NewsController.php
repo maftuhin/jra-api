@@ -32,7 +32,7 @@ class NewsController extends BaseController
     function search(Request $request)
     {
         $query = $request->input('query');
-        $data = DB::table('news')->select(["id", "title", "image", "link", "created_at"])
+        $data = DB::table('news')->select(["id", "title", "image", "type", "link", "created_at"])
             ->where('title', 'LIKE', '%' . $query . '%')
             ->orderBy("title", "ASC")
             ->get();
