@@ -15,7 +15,7 @@ class NewsController extends BaseController
 
     function index()
     {
-        $news = DB::table('news')->select(["id", "title", "image", "link", "created_at"])
+        $news = News::select(["id", "title", "image", "link", "created_at"])
             ->orderBy("id", "DESC")
             ->limit(10)
             ->get();
@@ -32,9 +32,9 @@ class NewsController extends BaseController
     function search(Request $request)
     {
         $query = $request->input('query');
-        $data = News::select(["id", "title", "image", "link", "created_at"])
+        $data = DB::table('news')->select(["id", "title", "image", "link", "created_at"])
             ->where('title', 'LIKE', '%' . $query . '%')
-            ->orderBy("title", "ASC")
+            ->orderBy("name", "ASC")
             ->get();
 
         if ($data->count() > 0) {
