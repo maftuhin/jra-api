@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class NewsController extends BaseController
@@ -14,7 +15,7 @@ class NewsController extends BaseController
 
     function index()
     {
-        $news = News::select(["id", "title", "image", "link", "created_at"])
+        $news = DB::table('news')->select(["id", "title", "image", "link", "created_at"])
             ->orderBy("id", "DESC")
             ->limit(10)
             ->get();
