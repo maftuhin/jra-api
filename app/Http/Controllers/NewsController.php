@@ -41,10 +41,7 @@ class NewsController extends BaseController
         if ($data->count() > 0) {
             return response()->json($data);
         } else {
-            // if ($query == "") {
-                
-            // }
-            return response(["message" => "\".$query.\"\nTidak ada Berita ditemukan"], 500);
+            return response(["message" => "\"$query\"\nTidak ada Berita ditemukan"], 500);
         }
     }
 }
