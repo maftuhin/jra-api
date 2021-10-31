@@ -120,7 +120,7 @@ class UserController extends BaseController
 
             $user->address = $address;
             $user->phone = $phone;
-            $user->license = $license;
+            $user->piagam = $license;
             $user->name = $name;
             $user->gender = $gender;
             $user->skill = $skill;
