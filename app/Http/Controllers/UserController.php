@@ -106,6 +106,7 @@ class UserController extends BaseController
         $name = $request->input("name");
         $gender = $request->input("gender");
         $phone = $request->input("phone");
+        $license = $request->input("license");
         $profession = $request->input("profession");
         $skill = $request->input("skill");
         $birth_place = $request->input("birth_place");
@@ -119,6 +120,7 @@ class UserController extends BaseController
 
             $user->address = $address;
             $user->phone = $phone;
+            $user->license = $license;
             $user->name = $name;
             $user->gender = $gender;
             $user->skill = $skill;
