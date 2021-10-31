@@ -23,7 +23,7 @@ class AdminController extends BaseController
         if ($admin->count() > 0) {
             return response()->json($admin);
         } else {
-            return response()->json(["message" => "Data Pengurus Kosong"], 500);
+            return response()->json(["message" => "Belum Ada Data Pengurus"], 500);
         }
     }
 
@@ -39,7 +39,7 @@ class AdminController extends BaseController
         if ($admin->count() > 0) {
             return response()->json($admin);
         } else {
-            return response()->json(["message" => "Data Pengurus Kosong"], 500);
+            return response()->json(["message" => "Belum Ada Data Pengurus"], 500);
         }
     }
 
