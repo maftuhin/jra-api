@@ -34,6 +34,7 @@ class AdminController extends BaseController
             ->join("users", "administratives.member", "users.id")
             ->join("admin_title", "administratives.jabatan", "admin_title.id")
             ->where("administratives.province", $id)
+            
             ->orderBy('admin_title.id', 'ASC')
             ->get();
         if ($admin->count() > 0) {
