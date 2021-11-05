@@ -99,10 +99,10 @@ class UserController extends BaseController
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
-            'email' => 'nullable'
         ]);
 
         $gender = $request->input("gender");
+        $email = $request->input("email");
         $phone = $request->input("phone");
         $license = $request->input("license");
         $profession = $request->input("profession");
@@ -126,7 +126,7 @@ class UserController extends BaseController
             $user->birth_place = $birth_place;
             $user->training_place = $training_place;
             $user->phone_visibility = $phone_visibility;
-            $user->email = $validated['email'];
+            $user->email = $email;
             if ($birth_date != "") {
                 $user->birth_date = $birth_date;
             }
