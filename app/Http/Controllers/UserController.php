@@ -99,7 +99,7 @@ class UserController extends BaseController
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
-            'email' => ''
+            'email' => 'nullable'
         ]);
 
         $gender = $request->input("gender");
