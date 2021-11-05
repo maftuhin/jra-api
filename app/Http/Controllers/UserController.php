@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\SkillUser;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -19,7 +18,7 @@ class UserController extends BaseController
     function search(Request $request, User $user)
     {
         $user = $user->newQuery();
-        $user->select("id", "name", "address","gender");
+        $user->select("id", "name", "address", "gender");
         if ($request->has("province")) {
             $user->where('province', $request->input('province'));
         }
@@ -48,7 +47,7 @@ class UserController extends BaseController
     function praktisi(Request $request, User $user)
     {
         $user = $user->newQuery();
-        $user->select("id", "name", "address","gender");
+        $user->select("id", "name", "address", "gender");
         if ($request->has("province")) {
             $user->where('province', $request->input('province'));
         }
@@ -96,14 +95,13 @@ class UserController extends BaseController
     function update(Request $request)
     {
         $token = auth()->user();
-        $this->validate($request, [
+        $validated = $this->validate($request, [
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
+            'email' => ''
         ]);
 
-        $address = $request->input("address");
-        $name = $request->input("name");
         $gender = $request->input("gender");
         $phone = $request->input("phone");
         $license = $request->input("license");
@@ -118,16 +116,17 @@ class UserController extends BaseController
         if ($token != null) {
             $user = User::find($token->id);
 
-            $user->address = $address;
+            $user->address = $validated['address'];
             $user->phone = $phone;
             $user->piagam = $license;
-            $user->name = $name;
+            $user->name = $validated['name'];
             $user->gender = $gender;
             $user->skill = $skill;
             $user->profession = $profession;
             $user->birth_place = $birth_place;
             $user->training_place = $training_place;
             $user->phone_visibility = $phone_visibility;
+            $user->email = $validated['email'];
             if ($birth_date != "") {
                 $user->birth_date = $birth_date;
             }
