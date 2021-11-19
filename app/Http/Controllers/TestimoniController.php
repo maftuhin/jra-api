@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimoni;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -29,7 +30,8 @@ class TestimoniController extends BaseController
             'address' => $validated['address'],
             'rate' => $validated['rate'],
             'testimoni' => $validated['testimoni'],
-            'anonymous' => $validated['anonymous']
+            'anonymous' => $validated['anonymous'],
+            'created_at' => Carbon::now()
         ]);
         return $store;
         // $data = Link::where('social', $id)->paginate(10);
