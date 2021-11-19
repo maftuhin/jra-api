@@ -86,3 +86,8 @@ $router->group(['prefix' => 'social'], function () use ($router) {
     $router->get('', 'SocialController@index');
     $router->get('list/{id}', 'SocialController@list');
 });
+
+$router->group(['prefix' => 'testimoni'], function () use ($router) {
+    $router->get('', 'TestimoniController@index');
+    $router->post('create', 'TestimoniController@store');
+});

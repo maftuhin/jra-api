@@ -17,7 +17,12 @@ class SocialController extends BaseController
 
     function list($id)
     {
-        $data = Link::where('social', $id)->simplePaginate(10);
-        return $data;
+        $data = Link::where('social', $id)->paginate(10);
+        return response([
+            "data" => $data->items(),
+            "total" => $data->total(),
+            "current_page" => $data->currentPage(),
+            "next_page_url" => $data->nextPageUrl()
+        ]);
     }
 }
