@@ -12,7 +12,7 @@ class TestimoniController extends BaseController
 
     function index()
     {
-        $data = Testimoni::all();
+        $data = Testimoni::select('id', 'name', 'anonymous', 'address', 'rate', 'testimoni', 'created_at')->get();
         return response()->json($data);
     }
 

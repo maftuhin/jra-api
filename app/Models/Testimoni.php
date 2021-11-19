@@ -22,6 +22,4 @@ class Testimoni extends Model
      * @var array
      */
     protected $hidden = [];
-    protected $table = "testimonis";
-    public $timestamps = true;
 }
