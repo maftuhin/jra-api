@@ -81,3 +81,8 @@ $router->group(['prefix' => 'product'], function () use ($router) {
     $router->get('', 'ProductController@index');
     $router->get('detail/{code}', 'ProductController@detail');
 });
+
+$router->group(['prefix' => 'social'], function () use ($router) {
+    $router->get('', 'SocialController@index');
+    $router->get('list/{id}', 'SocialController@list');
+});
