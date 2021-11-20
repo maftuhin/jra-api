@@ -21,5 +21,10 @@ class Testimoni extends Model
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'updated_at'
+    ];
+    protected $casts = [
+        'created_at' => 'datetime:d M Y H:s',
+    ];
 }

@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Testimoni;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
-class TestimoniController extends BaseController
+class TestimoniController extends Controller
 {
 
     function index()
     {
-        $data = Testimoni::select('id', 'name', 'anonymous', 'address', 'rate', 'testimoni', 'created_at')->get();
-        return response()->json($data);
+        $data = Testimoni::orderBy('created_at', 'DESC')
+            ->paginate(10);
+        return $this->pagingResponse($data);
     }
 
     function store(Request $request)
@@ -33,13 +33,6 @@ class TestimoniController extends BaseController
             'anonymous' => $validated['anonymous'],
             'created_at' => Carbon::now()
         ]);
-        return $store;
-        // $data = Link::where('social', $id)->paginate(10);
-        // return response([
-        //     "data" => $data->items(),
-        //     "total" => $data->total(),
-        //     "current_page" => $data->currentPage(),
-        //     "next_page_url" => $data->nextPageUrl()
-        // ]);
+        return $this->actionValidation($store, "Terima Kasih Reviewnya", "Terjadi Kesalahan");
     }
 }

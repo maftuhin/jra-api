@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laravel\Lumen\Routing\Controller;
 
 class RegionController extends Controller
 {
@@ -54,12 +53,7 @@ class RegionController extends Controller
             ->paginate();
 
         if ($data->total() > 0) {
-            return response([
-                "data" => $data->items(),
-                "total" => $data->total(),
-                "current_page" => $data->currentPage(),
-                "next_page_url" => $data->nextPageUrl()
-            ]);
+            $this->pagingResponse($data);
         } else {
             return response(["message" => "tidak ada data"], 500);
         }
