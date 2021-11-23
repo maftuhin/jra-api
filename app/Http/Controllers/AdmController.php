@@ -14,7 +14,10 @@ class AdmController extends Controller
             "name" => "required",
             "address" => "required",
             "email" => "required",
-            "phone" => "required"
+            "phone" => "required",
+            "donation" => "required|numeric"
+        ], [
+            "name.required" => "Nama Wajib Diisi"
         ]);
 
         $insert = Donation::insert([
@@ -22,6 +25,7 @@ class AdmController extends Controller
             "address" => $validated["address"],
             "phone" => $validated["phone"],
             "email" => $validated["email"],
+            "donation" => $validated["donation"]
         ]);
 
         return $this->actionValidation($insert, "Success", "Terjadi Kesalahan");
