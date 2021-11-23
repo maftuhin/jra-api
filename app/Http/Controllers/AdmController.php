@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use APP\Models\Donation;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 
 class AdmController extends Controller
