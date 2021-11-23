@@ -89,4 +89,4 @@ $router->group(['prefix' => 'testimoni'], function () use ($router) {
     $router->get('', 'TestimoniController@index');
     $router->post('create', 'TestimoniController@store');
 });
-$router->get("donation/send", "AdmController@donation");
+$router->post("donation/send", "AdmController@donation");
