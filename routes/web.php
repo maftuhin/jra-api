@@ -2,8 +2,6 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-use App\Http\Controllers\NewsController;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -91,3 +89,4 @@ $router->group(['prefix' => 'testimoni'], function () use ($router) {
     $router->get('', 'TestimoniController@index');
     $router->post('create', 'TestimoniController@store');
 });
+$router->get("donation/send", "AdmController@donation");
