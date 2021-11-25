@@ -53,7 +53,7 @@ class RegionController extends Controller
             ->paginate();
 
         if ($data->total() > 0) {
-            $this->pagingResponse($data);
+            return $this->pagingResponse($data);
         } else {
             return response(["message" => "tidak ada data"], 500);
         }
