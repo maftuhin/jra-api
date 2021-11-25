@@ -7,31 +7,20 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    function jadwalRuqyahMassal()
+    function index(Request $request)
     {
+        $type = $request->input("type");
         $data = Schedule::select("schedules.*")
-            ->where("type", "massal")
+            ->where("type", $type)
             ->orderBy("tanggal", "ASC")
             ->paginate(10);
         return $this->pagingResponse($data);
     }
 
-    function jadwalPelatihanRuqyah()
+    function show($id)
     {
-        $data = Schedule::select("schedules.*")
-            ->where("type", "pelatihan")
-            ->orderBy("tanggal", "ASC")
-            ->paginate(10);
-        return $this->pagingResponse($data);
-    }
-
-    function jadwalBekToGur()
-    {
-        $data = Schedule::select("schedules.*")
-            ->where("type", "btg")
-            ->orderBy("tanggal", "ASC")
-            ->paginate(10);
-        return $this->pagingResponse($data);
+        $data = Schedule::where("id", $id)->first();
+        return response($data);
     }
 
     function store(Request $request)

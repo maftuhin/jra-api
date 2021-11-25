@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use App\Http\Controllers\ScheduleController;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -54,7 +56,6 @@ $router->group(['prefix' => 'region'], function () use ($router) {
     $router->get('province', 'RegionController@getProvinsi');
     $router->get('kabupaten', 'RegionController@getKabupaten');
     $router->get('kecamatan', 'RegionController@getKecamatan');
-    $router->get('search', 'RegionController@searchCity');
 });
 
 $router->group(['prefix' => 'search'], function () use ($router) {
@@ -97,7 +98,7 @@ $router->group(['prefix' => 'adm'], function () use ($router) {
 $router->post("donation/send", "AdmController@donation");
 
 $router->group(['prefix' => 'schedule'], function () use ($router) {
+    $router->get("", "ScheduleController@index");
     $router->post("create", "ScheduleController@store");
-    $router->get("ruqyah-massal", "ScheduleController@jadwalRuqyahMassal");
-    $router->get("pelatihan-ruqyah", "ScheduleController@jadwalPelatihanRuqyah");
+    $router->get("detail/{id}", "ScheduleController@show");
 });
