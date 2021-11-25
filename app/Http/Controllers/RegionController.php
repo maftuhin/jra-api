@@ -18,7 +18,7 @@ class RegionController extends Controller
         return response()->json($data, 200);
     }
 
-    public function district(Request $request)
+    public function getKabupaten(Request $request)
     {
         $id = $request->input("id");
         $data = DB::table("wilayah_kabupaten")

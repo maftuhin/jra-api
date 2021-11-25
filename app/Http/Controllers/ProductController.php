@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class ProductController extends BaseController

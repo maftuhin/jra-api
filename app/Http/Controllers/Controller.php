@@ -27,12 +27,12 @@ class Controller extends BaseController
         ]);
     }
 
-    protected function actionValidation($action, $message, $error)
+    protected function actionValidation($action, $message)
     {
         if ($action == 1) {
             return response()->json(['message' => $message], 200);
         } else {
-            return response()->json(['message' => $error], 500);
+            return response()->json(['message' => "Terjadi Kesalahan"], 500);
         }
     }
 }

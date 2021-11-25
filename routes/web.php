@@ -52,9 +52,9 @@ $router->group(['prefix' => 'admin'], function () use ($router) {
 
 $router->group(['prefix' => 'region'], function () use ($router) {
     $router->get('province', 'RegionController@getProvinsi');
-    $router->get('kabupaten', 'RegionController@district');
+    $router->get('kabupaten', 'RegionController@getKabupaten');
     $router->get('kecamatan', 'RegionController@getKecamatan');
-    $router->get('search', 'RegionController@district');
+    $router->get('search', 'RegionController@searchCity');
 });
 
 $router->group(['prefix' => 'search'], function () use ($router) {
@@ -89,4 +89,15 @@ $router->group(['prefix' => 'testimoni'], function () use ($router) {
     $router->get('', 'TestimoniController@index');
     $router->post('create', 'TestimoniController@store');
 });
+// Adm
+$router->group(['prefix' => 'adm'], function () use ($router) {
+    $router->post("suggest", "AdmController@suggest");
+});
+
 $router->post("donation/send", "AdmController@donation");
+
+$router->group(['prefix' => 'schedule'], function () use ($router) {
+    $router->post("create", "ScheduleController@store");
+    $router->get("ruqyah-massal", "ScheduleController@jadwalRuqyahMassal");
+    $router->get("pelatihan-ruqyah", "ScheduleController@jadwalPelatihanRuqyah");
+});
