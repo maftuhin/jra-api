@@ -21,7 +21,7 @@ class TestimoniController extends Controller
         $validated = $this->validate($request, [
             'name' => 'required',
             'address' => 'required',
-            'rate' => 'required',
+            'rate' => 'required|numeric|min:1',
             'testimoni' => 'required',
             'anonymous' => 'required',
         ], [
