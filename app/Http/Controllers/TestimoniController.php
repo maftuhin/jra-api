@@ -9,21 +9,26 @@ use Illuminate\Http\Request;
 class TestimoniController extends Controller
 {
 
-    function index()
+    public function index()
     {
         $data = Testimoni::orderBy('created_at', 'DESC')
             ->paginate(10);
         return $this->pagingResponse($data);
     }
 
-    function store(Request $request)
+    public function store(Request $request)
     {
         $validated = $this->validate($request, [
             'name' => 'required',
             'address' => 'required',
             'rate' => 'required',
             'testimoni' => 'required',
-            'anonymous' => 'required'
+            'anonymous' => 'required',
+        ], [
+            "name.required" => "Nama Wajib Diisi",
+            "address.required" => "Alamat Wajib Diisi",
+            "rate.required" => "Beri Nilai 1-5",
+            "testimoni.required" => "Tuliskan Testimoni Anda",
         ]);
         $store = Testimoni::insert([
             'name' => $validated['name'],
@@ -31,8 +36,8 @@ class TestimoniController extends Controller
             'rate' => $validated['rate'],
             'testimoni' => $validated['testimoni'],
             'anonymous' => $validated['anonymous'],
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ]);
-        return $this->actionValidation($store, "Terima Kasih Reviewnya", "Terjadi Kesalahan");
+        return $this->actionValidation($store, "Terima Kasih Reviewnya");
     }
 }

@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class AdmController extends Controller
 {
-
     // Donasi
     public function donation(Request $request)
     {
@@ -18,9 +17,13 @@ class AdmController extends Controller
             "address" => "required",
             "email" => "required",
             "phone" => "required",
-            "donation" => "required|numeric"
+            "donation" => "required|numeric",
         ], [
-            "name.required" => "Nama Wajib Diisi"
+            "name.required" => "Nama Wajib Diisi",
+            "address.required" => "Alamat Wajib Diisi",
+            "email.required" => "Email Wajib Diisi",
+            "phone.required" => "No. HP Wajib Diisi",
+            "donation.required" => "Jumlah Donasi Harus Diisi",
         ]);
 
         $insert = Donation::insert([
@@ -28,21 +31,27 @@ class AdmController extends Controller
             "address" => $validated["address"],
             "phone" => $validated["phone"],
             "email" => $validated["email"],
-            "donation" => $validated["donation"]
+            "donation" => $validated["donation"],
         ]);
 
         return $this->actionValidation($insert, "Success");
     }
 
     //Suggest
-    function suggest(Request $request)
+    public function suggest(Request $request)
     {
         $validated = $this->validate($request, [
             "name" => "required",
             "address" => "required",
             "phone" => "required",
             "email" => "required|email",
-            "suggest" => "required"
+            "suggest" => "required",
+        ], [
+            "name.required" => "Nama Wajib Diisi",
+            "address.required" => "Alamat Wajib Diisi",
+            "email.required" => "Email Wajib Diisi",
+            "phone.required" => "No. HP Wajib Diisi",
+            "suggest.required" => "Isi Kritik dan Saran Anda",
         ]);
 
         $store = Suggest::insert([
@@ -51,7 +60,7 @@ class AdmController extends Controller
             "phone" => $validated["phone"],
             "email" => $validated["email"],
             "suggest" => $validated["suggest"],
-            "created_at" => Carbon::now()
+            "created_at" => Carbon::now(),
         ]);
 
         return $this->actionValidation($store, "Terima Kasih Atas kritik dan saranya");
