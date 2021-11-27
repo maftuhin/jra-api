@@ -27,7 +27,7 @@ class TestimoniController extends Controller
         ], [
             "name.required" => "Nama Wajib Diisi",
             "address.required" => "Alamat Wajib Diisi",
-            "rate.required" => "Beri Nilai 1-5",
+            "rate.min" => "Beri Bintang dari 1 sampai 5",
             "testimoni.required" => "Tuliskan Testimoni Anda",
         ]);
         $store = Testimoni::insert([
