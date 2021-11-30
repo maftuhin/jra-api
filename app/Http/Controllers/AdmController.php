@@ -18,6 +18,7 @@ class AdmController extends Controller
             "email" => "required",
             "phone" => "required",
             "donation" => "required|numeric",
+            "photo" => "required",
         ], [
             "name.required" => "Nama Wajib Diisi",
             "address.required" => "Alamat Wajib Diisi",
@@ -26,15 +27,32 @@ class AdmController extends Controller
             "donation.required" => "Jumlah Donasi Harus Diisi",
         ]);
 
-        $insert = Donation::insert([
-            "name" => $validated["name"],
-            "address" => $validated["address"],
-            "phone" => $validated["phone"],
-            "email" => $validated["email"],
-            "donation" => $validated["donation"],
-        ]);
+        $image = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
 
-        return $this->actionValidation($insert, "Success");
+            $storagePath = base_path('./images/donation');
+            $originalFileName = $photo->getClientOriginalName();
+            $fileExtension = $photo->getClientOriginalExtension();
+            $imageFileName = $validated["phone"] . '_' . Carbon::now() . '.' . $fileExtension;
+
+            $fileOutPut = $photo->move($storagePath, $imageFileName);
+            if (is_file($fileOutPut)) {
+                $image = url() . '/images/donation/' . $imageFileName;
+            }
+        }
+
+        return $validated;
+        // $insert = Donation::insert([
+        //     "name" => $validated["name"],
+        //     "address" => $validated["address"],
+        //     "phone" => $validated["phone"],
+        //     "email" => $validated["email"],
+        //     "donation" => $validated["donation"],
+        //     "image" => $image,
+        // ]);
+
+        // return $this->actionValidation($insert, "Success");
     }
 
     //Suggest
