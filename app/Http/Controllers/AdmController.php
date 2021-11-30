@@ -41,8 +41,9 @@ class AdmController extends Controller
                 $image = url() . '/images/donation/' . $imageFileName;
             }
         }
+        $validated["images"] = $image;
 
-        return $validated.$image;
+        return $validated;
         // $insert = Donation::insert([
         //     "name" => $validated["name"],
         //     "address" => $validated["address"],
