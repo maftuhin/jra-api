@@ -42,7 +42,7 @@ class AdmController extends Controller
             }
         }
 
-        return $validated;
+        return $validated.$image;
         // $insert = Donation::insert([
         //     "name" => $validated["name"],
         //     "address" => $validated["address"],
