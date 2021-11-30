@@ -31,7 +31,7 @@ class AdmController extends Controller
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
 
-            $storagePath = base_path('./images/donation');
+            $storagePath = './images/donation';
             $originalFileName = $photo->getClientOriginalName();
             $fileExtension = $photo->getClientOriginalExtension();
             $imageFileName = $validated["phone"] . '_' . Carbon::now() . '.' . $fileExtension;
