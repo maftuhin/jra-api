@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
-class NewsController extends BaseController
+class NewsController extends Controller
 {
     public function __construct()
     {
     }
 
-    function index()
+    public function index()
     {
         $news = News::select(["id", "title", "image", "link", "created_at"])
             ->orderBy("id", "DESC")
@@ -22,14 +21,14 @@ class NewsController extends BaseController
         return response($news);
     }
 
-    function detail(Request $request)
+    public function detail(Request $request)
     {
         $id = $request->input("id");
         $data = News::where("id", $id)->first();
         return response()->json($data);
     }
 
-    function search(Request $request)
+    public function search(Request $request)
     {
         $query = $request->input('query');
         $data = DB::table('news')->select(["id", "title", "image", "type", "link", "created_at"])
@@ -44,4 +43,20 @@ class NewsController extends BaseController
             return response(["message" => "\"$query\"\nTidak ada Berita ditemukan"], 500);
         }
     }
+
+    public function searchPaging(Request $request)
+    {
+        $query = $request->input('query');
+        $data = DB::table('news')->select(["id", "title", "image", "type", "link", "created_at"])
+            ->where('title', 'LIKE', '%' . $query . '%')
+            ->orderBy("id", "DESC")
+            ->paginate(10);
+
+        if ($data->total() > 0) {
+            return $this->pagingResponse($data);
+        } else {
+            return response(["message" => "\"$query\"\nTidak ada Berita ditemukan"], 500);
+        }
+    }
+
 }

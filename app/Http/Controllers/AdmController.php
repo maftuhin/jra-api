@@ -52,7 +52,7 @@ class AdmController extends Controller
             "created_at" => Carbon::now(),
         ]);
 
-        return $this->actionValidation($insert, "Terima Kasih\nSegera Kami Lakukan Pengecekan");
+        return $this->actionResult($insert, "donation_success");
     }
 
     //Suggest
@@ -81,12 +81,12 @@ class AdmController extends Controller
             "created_at" => Carbon::now(),
         ]);
 
-        return $this->actionValidation($store, "Terima Kasih Atas kritik dan saranya");
+        return $this->actionResult($store, "suggest_success");
     }
 
     public function bank()
     {
-        $data = DB::table("bank")->select("bank","account","name")->get();
+        $data = DB::table("bank")->select("bank", "account", "name")->get();
         return $data;
     }
 }

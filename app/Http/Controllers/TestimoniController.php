@@ -38,6 +38,6 @@ class TestimoniController extends Controller
             'anonymous' => $validated['anonymous'],
             'created_at' => Carbon::now(),
         ]);
-        return $this->actionValidation($store, "Terima Kasih Reviewnya");
+        return $this->actionResult($store, "review_success");
     }
 }

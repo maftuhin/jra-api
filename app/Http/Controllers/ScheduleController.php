@@ -40,6 +40,6 @@ class ScheduleController extends Controller
             "contact" => $validated["contact"],
             "tanggal" => $validated["tanggal"]
         ]);
-        return $this->actionValidation($store, "Input Jadwal Berhasil");
+        return $this->actionResult($store, "schedule_input");
     }
 }
