@@ -2,8 +2,6 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-use App\Http\Controllers\ScheduleController;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,7 +11,7 @@ use App\Http\Controllers\ScheduleController;
 | It is a breeze. Simply tell Lumen the URIs it should respond to
 | and give it the Closure to call when that URI is requested.
 |
-*/
+ */
 
 $router->get('/', function () use ($router) {
     return response("jra api");
@@ -93,6 +91,7 @@ $router->group(['prefix' => 'testimoni'], function () use ($router) {
 // Adm
 $router->group(['prefix' => 'adm'], function () use ($router) {
     $router->post("suggest", "AdmController@suggest");
+    $router->get("bank", "AdmController@bank");
 });
 
 $router->post("donation/send", "AdmController@donation");

@@ -6,6 +6,7 @@ use App\Models\Donation;
 use App\Models\Suggest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdmController extends Controller
 {
@@ -25,6 +26,7 @@ class AdmController extends Controller
             "email.required" => "Email Wajib Diisi",
             "phone.required" => "No. HP Wajib Diisi",
             "donation.required" => "Jumlah Donasi Harus Diisi",
+            "photo.required" => "Upload Bukti Donasi",
         ]);
 
         $image = null;
@@ -39,7 +41,7 @@ class AdmController extends Controller
                 $image = url() . '/images/donation/' . $imageFileName;
             }
         }
-        
+
         $insert = Donation::insert([
             "name" => $validated["name"],
             "address" => $validated["address"],
@@ -47,9 +49,10 @@ class AdmController extends Controller
             "email" => $validated["email"],
             "donation" => $validated["donation"],
             "image" => $image,
+            "created_at" => Carbon::now(),
         ]);
 
-        return $this->actionValidation($insert, "Success");
+        return $this->actionValidation($insert, "Terima Kasih\nSegera Kami Lakukan Pengecekan");
     }
 
     //Suggest
@@ -79,5 +82,11 @@ class AdmController extends Controller
         ]);
 
         return $this->actionValidation($store, "Terima Kasih Atas kritik dan saranya");
+    }
+
+    public function bank()
+    {
+        $data = DB::table("bank")->select("bank","account","name")->get();
+        return $data;
     }
 }
