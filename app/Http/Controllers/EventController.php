@@ -17,6 +17,12 @@ class EventController extends Controller
             "email" => "required|email",
             "place" => "required",
             "type" => "required",
+        ],[
+            "name.required" => "Nama Wajib Diisi",
+            "address.required" => "Alamat Wajib Diisi",
+            "email.required" => "Email Wajib Diisi",
+            "phone.required" => "No. HP Wajib Diisi",
+            "place.required" => "Tempat Pelatihan Wajib Diisi",
         ]);
 
         $store = DB::table("participant")->insert([
