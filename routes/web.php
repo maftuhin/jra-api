@@ -96,6 +96,7 @@ $router->group(['prefix' => 'adm'], function () use ($router) {
 });
 
 $router->post("donation/send", "AdmController@donation");
+$router->post("participant/register", "EventController@register");
 
 $router->group(['prefix' => 'schedule'], function () use ($router) {
     $router->get("", "ScheduleController@index");

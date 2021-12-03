@@ -86,7 +86,9 @@ class AdmController extends Controller
 
     public function bank()
     {
-        $data = DB::table("bank")->select("bank", "account", "name")->get();
+        $data = DB::table("bank")
+            ->select("bank", "account", "name")
+            ->get();
         return $data;
     }
 }

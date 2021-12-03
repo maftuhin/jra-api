@@ -8,7 +8,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 class ProductController extends BaseController
 {
 
-    function index()
+    public function index()
     {
         $data = Product::paginate();
         if ($data->total() > 0) {
@@ -16,16 +16,17 @@ class ProductController extends BaseController
                 "data" => $data->items(),
                 "total" => $data->total(),
                 "current_page" => $data->currentPage(),
-                "next_page_url" => $data->nextPageUrl()
+                "next_page_url" => $data->nextPageUrl(),
             ]);
         } else {
             return response(["message" => "tidak ada data"], 500);
         }
     }
 
-    function detail($code)
+    public function detail($code)
     {
-        $data = Product::where("code", $code)->first();
+        $data = Product::where("code", $code)
+            ->first();
         return response()->json($data, 200);
     }
 }
