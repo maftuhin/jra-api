@@ -58,6 +58,7 @@ $router->group(['prefix' => 'region'], function () use ($router) {
 
 $router->group(['prefix' => 'search'], function () use ($router) {
     $router->get('city', 'RegionController@searchCity');
+    $router->get('place', 'RegionController@searchPlace');
 });
 
 $router->group(['prefix' => 'skill'], function () use ($router) {

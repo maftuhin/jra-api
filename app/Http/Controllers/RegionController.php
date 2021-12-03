@@ -58,4 +58,21 @@ class RegionController extends Controller
             return response(["message" => "tidak ada data"], 500);
         }
     }
+
+    public function searchPlace(Request $request)
+    {
+        $query = $request->input("q");
+        $type = $request->input("type");
+        $table = "wilayah_provinsi";
+        if ($type == "PC") {
+            $table = "wilayah_kabupaten";
+        }
+        $data = DB::table($table)
+            ->select(["name"])
+            ->where("name", "LIKE", "%" . $query . "%")
+            ->where("visibility", 1)
+            ->orderBy("name", "ASC")
+            ->pluck("name");
+        return $data;
+    }
 }
