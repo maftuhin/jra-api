@@ -29,27 +29,38 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string',
-            'phone' => 'required|unique:users',
-            'address' => 'required|string',
-            'password' => 'required',
+        $validated = $this->validate($request, [
+            "name" => "required",
+            "address" => "required",
+            "birth_place" => "required",
+            "birth_date" => "required",
+            "gender" => "required",
+            "phone" => "required",
+            "member_card" => "required",
+            "skill" => "required",
+            "email" => "required",
+            "license" => "required",
+            "training_place" => "required",
+            "training_date" => "required",
+            "job" => "required",
+            "photo" => "required",
         ]);
 
-        try {
+        return $validated;
 
-            $user = new User;
-            $user->name = $request->input('name');
-            $user->phone = $request->input('phone');
-            $user->address = $request->input('address');
-            $plainPassword = $request->input('password');
-            $user->password = app('hash')->make($plainPassword);
+        // try {
+        //     $user = new User;
+        //     $user->name = $request->input('name');
+        //     $user->phone = $request->input('phone');
+        //     $user->address = $request->input('address');
+        //     $plainPassword = $request->input('password');
+        //     $user->password = app('hash')->make($plainPassword);
 
-            $user->save();
+        //     $user->save();
 
-            return response()->json(['user' => $user, 'message' => 'USER CREATED'], 201);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'User Registration Failed!' . $e], 409);
-        }
+        //     return response()->json(['user' => $user, 'message' => 'USER CREATED'], 201);
+        // } catch (\Exception $e) {
+        //     return response()->json(['message' => 'User Registration Failed!' . $e], 409);
+        // }
     }
 }

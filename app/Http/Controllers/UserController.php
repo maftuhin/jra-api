@@ -6,16 +6,15 @@ use App\Models\SkillUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['search', 'detail', 'praktisi']]);
     }
 
-    function search(Request $request, User $user)
+    public function search(Request $request, User $user)
     {
         $user = $user->newQuery();
         $user->select("id", "name", "address", "gender");
@@ -44,7 +43,7 @@ class UserController extends BaseController
         }
     }
 
-    function praktisi(Request $request, User $user)
+    public function praktisi(Request $request, User $user)
     {
         $user = $user->newQuery();
         $user->select("id", "name", "address", "gender");
@@ -66,7 +65,7 @@ class UserController extends BaseController
         }
     }
 
-    function detail(Request $request)
+    public function detail(Request $request)
     {
         $userId = $request->input("id");
         $skill = SkillUser::select("skills.skill")
@@ -92,7 +91,7 @@ class UserController extends BaseController
         return response()->json($user);
     }
 
-    function update(Request $request)
+    public function update(Request $request)
     {
         $token = auth()->user();
         $validated = $this->validate($request, [
@@ -116,10 +115,10 @@ class UserController extends BaseController
         if ($token != null) {
             $user = User::find($token->id);
 
+            $user->name = $validated['name'];
             $user->address = $validated['address'];
             $user->phone = $phone;
             $user->piagam = $license;
-            $user->name = $validated['name'];
             $user->gender = $gender;
             $user->skill = $skill;
             $user->profession = $profession;
@@ -152,12 +151,12 @@ class UserController extends BaseController
             return response($user);
         } else {
             return response()->json([
-                "message" => "Unauthorized"
+                "message" => "Unauthorized",
             ], 401);
         }
     }
 
-    function password(Request $request)
+    public function password(Request $request)
     {
         $token = auth()->user();
         $this->validate($request, [
@@ -176,5 +175,16 @@ class UserController extends BaseController
         } else {
             return response(["message" => "Password Lama Tidak Sesuai"], 500);
         }
+    }
+
+    public function userStatus()
+    {
+        $user = auth()->user();
+        $adm = User::select("users.id","users.role","title")
+            ->leftJoin("administratives", "administratives.member", "users.id")
+            ->leftJoin("admin_title", "administratives.jabatan", "admin_title.id")
+            ->where("users.id", "8091")
+            ->first();
+        return $adm;
     }
 }

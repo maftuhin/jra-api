@@ -61,8 +61,11 @@ class RegionController extends Controller
 
     public function searchPlace(Request $request)
     {
+        $validated = $this->validate($request, [
+            "type" => "required",
+        ]);
         $query = $request->input("q");
-        $type = $request->input("type");
+        $type = $validated["type"];
         $table = "wilayah_provinsi";
         if ($type == "PC") {
             $table = "wilayah_kabupaten";
@@ -72,6 +75,7 @@ class RegionController extends Controller
             ->where("name", "LIKE", "%" . $query . "%")
             ->where("visibility", 1)
             ->orderBy("name", "ASC")
+            ->limit(20)
             ->pluck("name");
         return $data;
     }

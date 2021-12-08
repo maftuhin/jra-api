@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    function index(Request $request)
+    public function index(Request $request)
     {
         $type = $request->input("type");
         $data = Schedule::select("schedules.*")
@@ -17,20 +17,25 @@ class ScheduleController extends Controller
         return $this->pagingResponse($data);
     }
 
-    function show($id)
+    public function show($id)
     {
         $data = Schedule::where("id", $id)->first();
         return response($data);
     }
 
-    function store(Request $request)
+    public function store(Request $request)
     {
         $validated = $this->validate($request, [
             "type" => "required",
             "place" => "required",
             "pelaksana" => "required",
             "contact" => "required",
-            "tanggal" => "required"
+            "tanggal" => "required",
+        ], [
+            "tanngal.required" => "Isi Tanggal Pelaksaanaan Terlebih Dahulu",
+            "place.required" => "Tempat Pelaksanaan Wajib Diisi",
+            "pelaksana.required" => "Isi nama PC/PW",
+            "contact.required" => "Kontak Panitia Wajib Diisi",
         ]);
 
         $store = Schedule::insert([
@@ -38,7 +43,7 @@ class ScheduleController extends Controller
             "place" => $validated["place"],
             "pelaksana" => $validated["pelaksana"],
             "contact" => $validated["contact"],
-            "tanggal" => $validated["tanggal"]
+            "tanggal" => $validated["tanggal"],
         ]);
         return $this->actionResult($store, "schedule_input");
     }

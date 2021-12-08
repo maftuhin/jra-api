@@ -91,4 +91,17 @@ class AdmController extends Controller
             ->get();
         return $data;
     }
+
+    public function inputIanah(Request $request)
+    {
+        $validated = $this->validate($request, [
+            "pelaksana" => "required",
+            "tanggal_pelaksanaan" => "required",
+            "tempat_pelatihan" => "required",
+            "jumlah_peserta" => "required",
+            "ianah_peserta" => "required",
+            "ianah_syahadah" => "required",
+        ]);
+        return $validated;
+    }
 }
