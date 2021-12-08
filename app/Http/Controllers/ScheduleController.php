@@ -32,7 +32,7 @@ class ScheduleController extends Controller
             "contact" => "required",
             "tanggal" => "required",
         ], [
-            "tanngal.required" => "Isi Tanggal Pelaksaanaan Terlebih Dahulu",
+            "tanggal.required" => "Isi Tanggal Pelaksaanaan Terlebih Dahulu",
             "place.required" => "Tempat Pelaksanaan Wajib Diisi",
             "pelaksana.required" => "Isi nama PC/PW",
             "contact.required" => "Kontak Panitia Wajib Diisi",

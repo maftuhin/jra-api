@@ -180,10 +180,10 @@ class UserController extends Controller
     public function userStatus()
     {
         $user = auth()->user();
-        $adm = User::select("users.id","users.role","title")
+        $adm = User::select("users.id", "users.role", "title")
             ->leftJoin("administratives", "administratives.member", "users.id")
             ->leftJoin("admin_title", "administratives.jabatan", "admin_title.id")
-            ->where("users.id", "8091")
+            ->where("users.id", $user->id)
             ->first();
         return $adm;
     }
