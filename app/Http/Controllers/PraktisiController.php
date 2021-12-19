@@ -14,6 +14,6 @@ class PraktisiController extends Controller
             "pac" => "required",
         ]);
         $data = User::paginate(10);
-        return $data;
+        return $this->pagingResponse($data);
     }
 }

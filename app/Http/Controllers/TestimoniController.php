@@ -36,7 +36,7 @@ class TestimoniController extends Controller
             'rate' => $validated['rate'],
             'testimoni' => $validated['testimoni'],
             'anonymous' => $validated['anonymous'],
-            'created_at' => Carbon::now(),
+            'created_at' => Carbon::now()->timezone("Asia/Jakarta"),
         ]);
         return $this->actionResult($store, "review_success");
     }

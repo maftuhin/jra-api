@@ -101,7 +101,30 @@ class AdmController extends Controller
             "jumlah_peserta" => "required",
             "ianah_peserta" => "required",
             "ianah_syahadah" => "required",
+            "photo" => "required",
+        ], [
+            "tanggal_pelaksanaan.required" => "Tanggal Pelaksanaan Wajib Diisi",
+            "tempat_pelatihan.required" => "Tempat Pelatihan Wajib Diisi",
+            "jumlah_peserta.required" => "Jumlah Peserta Wajib Diisi",
+            "ianah_peserta.required" => "Ianah Peserta Wajib Diisi",
+            "ianah_syahadah.required" => "Ianah Syahadah Wajib Diisi",
+            "photo.required" => "Upload Bukti Photo Terlebih Dahulu",
         ]);
-        return $validated;
+        $image = null;
+        if ($request->hasFile("photo")) {
+            $photo = $validated["photo"];
+            $image = $photo->getClientOriginalName();
+        }
+        $store = DB::table("ianah")->insert([
+            "pelaksana" => $validated["pelaksana"],
+            "tanggal" => $validated["tanggal_pelaksanaan"],
+            "tempat" => $validated["tempat_pelatihan"],
+            "jumlah_peserta" => $validated["jumlah_peserta"],
+            "ianah_peserta" => $validated["ianah_peserta"],
+            "ianah_syahadah" => $validated["ianah_syahadah"],
+            "image" => $image,
+            "created_at" => Carbon::now()->timezone("Asia/Jakarta"),
+        ]);
+        return $this->actionResult($store, "input_ianah");
     }
 }

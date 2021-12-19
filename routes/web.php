@@ -95,6 +95,7 @@ $router->group(['prefix' => 'testimoni'], function () use ($router) {
 $router->group(['prefix' => 'adm'], function () use ($router) {
     $router->post("suggest", "AdmController@suggest");
     $router->get("bank", "AdmController@bank");
+    $router->post("ianah", "AdmController@inputIanah");
 });
 
 $router->post("donation/send", "AdmController@donation");
