@@ -101,7 +101,7 @@ class AdmController extends Controller
             "jumlah_peserta" => "required",
             "ianah_peserta" => "required",
             "ianah_syahadah" => "required",
-            "code" => "requried",
+            "code" => "required",
             "photo" => "required",
         ], [
             "tanggal_pelaksanaan.required" => "Tanggal Pelaksanaan Wajib Diisi",
