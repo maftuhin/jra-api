@@ -101,6 +101,7 @@ class AdmController extends Controller
             "jumlah_peserta" => "required",
             "ianah_peserta" => "required",
             "ianah_syahadah" => "required",
+            "code" => "requried",
             "photo" => "required",
         ], [
             "tanggal_pelaksanaan.required" => "Tanggal Pelaksanaan Wajib Diisi",
@@ -122,6 +123,7 @@ class AdmController extends Controller
             "jumlah_peserta" => $validated["jumlah_peserta"],
             "ianah_peserta" => $validated["ianah_peserta"],
             "ianah_syahadah" => $validated["ianah_syahadah"],
+            "code" => $validated["code"],
             "image" => $image,
             "created_at" => Carbon::now()->timezone("Asia/Jakarta"),
         ]);
