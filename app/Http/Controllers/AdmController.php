@@ -114,7 +114,7 @@ class AdmController extends Controller
         $image = null;
         if ($request->hasFile("photo")) {
             $photo = $validated["photo"];
-            $storagePath = './images/donation';
+            $storagePath = './images/ianah';
             $fileExtension = $photo->getClientOriginalExtension();
             $imageFileName = $validated["pelaksana"] . '_' . Carbon::now() . '.' . $fileExtension;
 
@@ -123,7 +123,7 @@ class AdmController extends Controller
                 $image = url() . '/images/ianah/' . $imageFileName;
             }
         }
-        
+
         $store = DB::table("ianah")->insert([
             "pelaksana" => $validated["pelaksana"],
             "tanggal" => $validated["tanggal_pelaksanaan"],
