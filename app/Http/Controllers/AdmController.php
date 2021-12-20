@@ -114,13 +114,14 @@ class AdmController extends Controller
         $image = null;
         if ($request->hasFile("photo")) {
             $photo = $validated["photo"];
-            $storagePath = './images/ianah';
+            $path = "/images/ianah/" . $validated["code"];
+            $storagePath = '.' . $path;
             $fileExtension = $photo->getClientOriginalExtension();
             $imageFileName = $validated["pelaksana"] . '_' . Carbon::now() . '.' . $fileExtension;
 
             $fileOutPut = $photo->move($storagePath, $imageFileName);
             if (is_file($fileOutPut)) {
-                $image = url() . '/images/ianah/' . $imageFileName;
+                $image = url() . $path . $imageFileName;
             }
         }
 
