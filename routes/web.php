@@ -23,6 +23,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('register', 'AuthController@register');
     $router->post('logout', 'AuthController@out');
 });
+// Praktisi
+$router->group(['prefix' => 'praktisi'], function () use ($router) {
+    $router->get('data', 'PraktisiController@dataPraktisi');
+});
 // Home
 $router->group(['prefix' => 'home'], function () use ($router) {
     $router->get('banner', 'HomeController@banner');

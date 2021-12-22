@@ -16,4 +16,17 @@ class PraktisiController extends Controller
         $data = User::paginate(10);
         return $this->pagingResponse($data);
     }
+
+    public function dataPraktisi(Request $request)
+    {
+        $validated = $this->validate($request, [
+            "pc" => "required",
+            "pac" => "required",
+        ]);
+        // select("id", "name", "address", "phone", "profession", "skill", "email")
+        $data = User::where("city", $validated["pc"])
+            ->orWhere("districts", $validated["pac"])
+            ->paginate(10);
+        return $this->pagingResponse($data);
+    }
 }

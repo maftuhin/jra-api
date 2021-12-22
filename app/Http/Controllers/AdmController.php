@@ -121,7 +121,7 @@ class AdmController extends Controller
 
             $fileOutPut = $photo->move($storagePath, $imageFileName);
             if (is_file($fileOutPut)) {
-                $image = url() . $path . $imageFileName;
+                $image = url() . $path . '/' . $imageFileName;
             }
         }
 
