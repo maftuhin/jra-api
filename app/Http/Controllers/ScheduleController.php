@@ -47,4 +47,11 @@ class ScheduleController extends Controller
         ]);
         return $this->actionResult($store, "schedule_input");
     }
+
+    public function destroy($id)
+    {
+        $delete = Schedule::where("id", $id)
+            ->delete();
+        return $this->actionResult($delete, "schedule_delete");
+    }
 }
