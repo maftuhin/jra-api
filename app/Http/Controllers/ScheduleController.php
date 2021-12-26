@@ -48,6 +48,31 @@ class ScheduleController extends Controller
         return $this->actionResult($store, "schedule_input");
     }
 
+    public function update($id, Request $request)
+    {
+        $validated = $this->validate($request, [
+            "type" => "required",
+            "place" => "required",
+            "pelaksana" => "required",
+            "contact" => "required",
+            "tanggal" => "required",
+        ], [
+            "tanggal.required" => "Isi Tanggal Pelaksaanaan Terlebih Dahulu",
+            "place.required" => "Tempat Pelaksanaan Wajib Diisi",
+            "pelaksana.required" => "Isi nama PC/PW",
+            "contact.required" => "Kontak Panitia Wajib Diisi",
+        ]);
+
+        $update = Schedule::where("id", $id)->update([
+            "type" => $validated["type"],
+            "place" => $validated["place"],
+            "pelaksana" => $validated["pelaksana"],
+            "contact" => $validated["contact"],
+            "tanggal" => $validated["tanggal"],
+        ]);
+        return $this->actionResult($update, "schedule_update");
+    }
+
     public function destroy($id)
     {
         $delete = Schedule::where("id", $id)

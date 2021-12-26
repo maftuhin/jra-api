@@ -108,6 +108,7 @@ $router->post("participant/register", "EventController@register");
 $router->group(['prefix' => 'schedule'], function () use ($router) {
     $router->get("", "ScheduleController@index");
     $router->post("create", "ScheduleController@store");
+    $router->post("update/{id}", "ScheduleController@update");
     $router->get("detail/{id}", "ScheduleController@show");
     $router->get("delete/{id}", "ScheduleController@destroy");
 });

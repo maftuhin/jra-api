@@ -11,7 +11,7 @@ class Schedule extends Model
     ];
 
     protected $casts = [
-        'tanggal' => 'datetime:d M Y H:s',
+        'tanggal' => 'datetime:d M Y H:i',
     ];
     
 }
