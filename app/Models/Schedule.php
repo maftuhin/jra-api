@@ -10,8 +10,8 @@ class Schedule extends Model
         "created_at","updated_at"
     ];
 
-    protected $casts = [
-        'tanggal' => 'datetime:d M Y H:i',
-    ];
+    // protected $casts = [
+    //     'tanggal' => 'datetime:d M Y H:i',
+    // ];
     
 }
