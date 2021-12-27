@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class ArticleController extends BaseController
 {
 
-    function index(Request $request)
+    public function index(Request $request)
     {
         $type = $request->input("type");
         $article = Article::select("articles.id", "articles.title", "articles.image")
@@ -21,7 +22,7 @@ class ArticleController extends BaseController
                 "data" => $article->items(),
                 "total" => $article->total(),
                 "current_page" => $article->currentPage(),
-                "next_page_url" => $article->nextPageUrl()
+                "next_page_url" => $article->nextPageUrl(),
             ]);
         } else {
             return response(["message" => "tidak ada data"], 500);
@@ -36,5 +37,13 @@ class ArticleController extends BaseController
         } else {
             return response(["message" => "article tidak ditemukan"], 500);
         }
+    }
+
+    public function content($code)
+    {
+        $data = DB::table("content")
+            ->where("code", $code)
+            ->first();
+        return response()->json($data);
     }
 }

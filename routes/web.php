@@ -47,6 +47,7 @@ $router->group(['prefix' => 'article'], function () use ($router) {
     $router->get('', 'ArticleController@index');
     $router->get('detail/{id}', 'ArticleController@detail');
 });
+$router->get('content/{code}', 'ArticleController@content');
 
 $router->group(['prefix' => 'admin'], function () use ($router) {
     $router->get('pc', 'AdminController@city');
