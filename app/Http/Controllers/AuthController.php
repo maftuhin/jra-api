@@ -43,7 +43,6 @@ class AuthController extends Controller
             "training_place" => "required",
             "training_date" => "required",
             "job" => "required",
-            "photo" => "required",
         ]);
 
         return $validated;

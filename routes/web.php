@@ -60,6 +60,8 @@ $router->group(['prefix' => 'region'], function () use ($router) {
     $router->get('province', 'RegionController@getProvinsi');
     $router->get('kabupaten', 'RegionController@getKabupaten');
     $router->get('kecamatan', 'RegionController@getKecamatan');
+    $router->get('pc', 'RegionController@filterKabupaten');
+    $router->get('pac/{id}', 'RegionController@filterKecamatan');
 });
 
 $router->group(['prefix' => 'search'], function () use ($router) {

@@ -55,7 +55,7 @@ class RegionController extends Controller
         if ($data->total() > 0) {
             return $this->pagingResponse($data);
         } else {
-            return response(["message" => "tidak ada data"], 500);
+            return response(["message" => "Daerah tidak ditemukan"], 500);
         }
     }
 
@@ -78,5 +78,26 @@ class RegionController extends Controller
             ->limit(20)
             ->pluck("name");
         return $data;
+    }
+
+    public function filterKabupaten()
+    {
+        $user = auth()->user();
+        $data = DB::table("wilayah_kabupaten")
+            ->select(["id", "name"])
+            ->where("provinsi_id", $user->province)
+            ->where("visibility", 1)
+            ->orderBy("name", "ASC")->get();
+        return response()->json($data, 200);
+    }
+
+    public function filterKecamatan($id)
+    {
+        $data = DB::table("wilayah_kecamatan")
+            ->select(["id", "name"])
+            ->where("kabupaten_id", $id)
+            ->where("visibility", 1)
+            ->orderBy("name", "ASC")->get();
+        return response()->json($data, 200);
     }
 }
