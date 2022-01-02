@@ -10,7 +10,8 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $type = $request->input("type");
-        $data = Schedule::select("schedules.*")
+        $data = Schedule::select("schedules.*", "users.name")
+            ->join("users", "users.id", "schedules.user")
             ->where("type", $type)
             ->orderBy("tanggal", "ASC")
             ->paginate(10);
@@ -41,11 +42,11 @@ class ScheduleController extends Controller
 
         $store = Schedule::insert([
             "type" => $validated["type"],
-            "place" => $validated["place"],
-            "pelaksana" => $validated["pelaksana"],
-            "contact" => $validated["contact"],
             "tanggal" => $validated["tanggal"],
-            "user"=> $user->id
+            "place" => $validated["place"],
+            "organizer" => $user->city,
+            "contact" => $validated["contact"],
+            "user" => $user->id,
         ]);
         return $this->actionResult($store, "schedule_input");
     }
