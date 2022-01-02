@@ -114,4 +114,5 @@ $router->group(['prefix' => 'schedule'], function () use ($router) {
     $router->post("update/{id}", "ScheduleController@update");
     $router->get("detail/{id}", "ScheduleController@show");
     $router->get("delete/{id}", "ScheduleController@destroy");
+    $router->get("category", "ScheduleController@category");
 });

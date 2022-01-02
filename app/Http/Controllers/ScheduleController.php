@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
         $type = $request->input("type");
-        $data = Schedule::select("schedules.*", "users.name", "wilayah_kabupaten.name")
+        $data = Schedule::select("schedules.id", "schedules.tanggal", "schedules.place", "schedules.contact", "users.name", "wilayah_kabupaten.name as organizer")
             ->join("users", "users.id", "schedules.user")
             ->join("wilayah_kabupaten", "wilayah_kabupaten.id", "schedules.organizer")
             ->where("type", $type)
@@ -75,6 +76,14 @@ class ScheduleController extends Controller
             "tanggal" => $validated["tanggal"],
         ]);
         return $this->actionResult($update, "schedule_update");
+    }
+
+    public function category()
+    {
+        $data = DB::table("schedule_category")
+            ->select("id","category", "code")
+            ->get();
+        return response()->json($data);
     }
 
     public function destroy($id)
