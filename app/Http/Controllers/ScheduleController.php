@@ -10,8 +10,9 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $type = $request->input("type");
-        $data = Schedule::select("schedules.*", "users.name")
+        $data = Schedule::select("schedules.*", "users.name", "wilayah_kabupaten.name")
             ->join("users", "users.id", "schedules.user")
+            ->join("wilayah_kabupaten", "wilayah_kabupaten.id", "schedules.organizer")
             ->where("type", $type)
             ->orderBy("tanggal", "ASC")
             ->paginate(10);
