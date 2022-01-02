@@ -25,6 +25,7 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth()->user();
         $validated = $this->validate($request, [
             "type" => "required",
             "place" => "required",
@@ -44,6 +45,7 @@ class ScheduleController extends Controller
             "pelaksana" => $validated["pelaksana"],
             "contact" => $validated["contact"],
             "tanggal" => $validated["tanggal"],
+            "user"=> $user->id
         ]);
         return $this->actionResult($store, "schedule_input");
     }
