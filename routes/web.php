@@ -26,7 +26,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 // Praktisi
 $router->group(['prefix' => 'praktisi'], function () use ($router) {
     $router->get('data', 'PraktisiController@dataPraktisi');
-    $router->post('update', 'PraktisiController@update');
+    $router->post('update/{id}', 'PraktisiController@update');
 });
 // Home
 $router->group(['prefix' => 'home'], function () use ($router) {
