@@ -28,4 +28,16 @@ class PraktisiController extends Controller
             ->paginate(10);
         return $this->pagingResponse($data);
     }
+
+    public function update($id, Request $request)
+    {
+        $validated = $this->validate($request, [
+            "name" => "required",
+            "address" => "required",
+        ]);
+        $update = User::where("id", $id)->update([
+            "address" => $validated["address"],
+        ]);
+        return $this->actionResult($update, "praktisi_update");
+    }
 }

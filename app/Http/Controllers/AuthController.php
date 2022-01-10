@@ -36,7 +36,7 @@ class AuthController extends Controller
             "birth_date" => "required",
             "gender" => "required",
             "phone" => "required",
-            "member_card" => "required",
+            "karta" => "required",
             "skill" => "required",
             "email" => "required",
             "license" => "required",
