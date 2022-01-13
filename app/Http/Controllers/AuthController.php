@@ -16,7 +16,7 @@ class AuthController extends Controller
             'phone' => 'required|string',
             'password' => 'required|string',
         ], [
-            'phone.required' => 'Isi Nomer Telephone Dengan Benar'
+            'phone.required' => 'Isi Nomer Telephone Dengan Benar',
         ]);
 
         $credential = $request->only(['phone', 'password']);
@@ -43,23 +43,27 @@ class AuthController extends Controller
             "training_place" => "required",
             "training_date" => "required",
             "job" => "required",
+        ], [
+            "name.required" => "Isi Nama Praktisi",
+            "address.required" => "Isi Alamat Praktisi Dengan Benar",
         ]);
 
+        // $insert = User::insert([
+        //     "name" => $validated["name"],
+        //     "address" => $validated["address"],
+        //     "birth_place" => $validated["birth_place"],
+        //     "birth_date" => $validated["birth_date"],
+        //     "gender" => $validated["gender"],
+        //     "phone" => "required",
+        //     "karta" => "required",
+        //     "skill" => "required",
+        //     "email" => "required",
+        //     "license" => "required",
+        //     "training_place" => "required",
+        //     "training_date" => "required",
+        //     "job" => "required",
+        // ]);
+
         return $validated;
-
-        // try {
-        //     $user = new User;
-        //     $user->name = $request->input('name');
-        //     $user->phone = $request->input('phone');
-        //     $user->address = $request->input('address');
-        //     $plainPassword = $request->input('password');
-        //     $user->password = app('hash')->make($plainPassword);
-
-        //     $user->save();
-
-        //     return response()->json(['user' => $user, 'message' => 'USER CREATED'], 201);
-        // } catch (\Exception $e) {
-        //     return response()->json(['message' => 'User Registration Failed!' . $e], 409);
-        // }
     }
 }

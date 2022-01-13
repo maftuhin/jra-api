@@ -13,7 +13,9 @@ class PraktisiController extends Controller
             "pc" => "required",
             "pac" => "required",
         ]);
-        $data = User::paginate(10);
+        $data = User::where("city", $validated["pc"])
+            ->where("karta", "!=", "")
+            ->paginate(10);
         return $this->pagingResponse($data);
     }
 
@@ -23,6 +25,7 @@ class PraktisiController extends Controller
             "pc" => "required",
             "pac" => "required",
         ]);
+
         $data = User::where("city", $validated["pc"])
             ->where("districts", $validated["pac"])
             ->paginate(10);
@@ -36,6 +39,7 @@ class PraktisiController extends Controller
             "address" => "required",
         ]);
         $update = User::where("id", $id)->update([
+            "name" => $validated["name"],
             "address" => $validated["address"],
         ]);
         return $this->actionResult($update, "praktisi_update");
