@@ -52,10 +52,13 @@ $router->group(['prefix' => 'article'], function () use ($router) {
 $router->get('content/{code}', 'ArticleController@content');
 
 $router->group(['prefix' => 'admin'], function () use ($router) {
+    $router->get('pw', 'AdminController@province');
     $router->get('pc', 'AdminController@city');
     $router->get('pac', 'AdminController@district');
-    $router->get('pw', 'AdminController@province');
     $router->get('main', 'AdminController@pusat');
+    $router->get('data', 'AdminController@data');
+    $router->get('title', 'AdminController@adminTitle');
+    $router->get('user', 'AdminController@userAdmin');
 });
 
 $router->group(['prefix' => 'region'], function () use ($router) {

@@ -44,4 +44,9 @@ class PraktisiController extends Controller
         ]);
         return $this->actionResult($update, "praktisi_update");
     }
+
+    public function registerKarta()
+    {
+
+    }
 }

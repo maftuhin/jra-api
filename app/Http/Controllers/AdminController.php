@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
 
-class AdminController extends BaseController
+class AdminController extends Controller
 {
     public function __construct()
     {
@@ -73,5 +74,62 @@ class AdminController extends BaseController
         } else {
             return response()->json(["message" => "Data Pengurus Kosong"], 500);
         }
+    }
+
+    public function adminTitle()
+    {
+        $data = DB::table("admin_title")
+            ->select("id", "title")
+            ->get();
+        return $data;
+    }
+
+    public function userAdmin(User $user)
+    {
+        $me = auth()->user();
+        $role = $me->role;
+        $user = $user->newQuery();
+        $user->select("id", "name","address");
+        $user->orderBy("name","ASC");
+
+        if ($role == "PW") {
+            $user->where("province", $me->province);
+        } else if ($role == "PC") {
+            $user->where("city", $me->city);
+        } else if ($role == "PP") {
+            // $user->where("administratives.main", 1);
+        } else {
+            return response()->json(
+                ["message" => "Hanya Untuk Pengurus"],
+                500
+            );
+        }
+        $result = $user->paginate(20);
+        return $this->pagingResponse($result);
+    }
+
+    public function data(Admin $admin)
+    {
+        $me = auth()->user();
+        $admin = $admin->newQuery();
+        $admin->select("users.id", "users.name", "admin_title.title", "administratives.jabatan")
+            ->join("users", "administratives.member", "users.id")
+            ->join("admin_title", "administratives.jabatan", "admin_title.id")
+            ->orderBy('admin_title.id', 'ASC');
+        $role = $me->role;
+        if ($role == "PW") {
+            $admin->where("administratives.province", $me->province);
+        } else if ($role == "PC") {
+            $admin->where("administratives.city", $me->city);
+        } else if ($role == "PP") {
+            $admin->where("administratives.main", 1);
+        } else {
+            return response()->json(
+                ["message" => "Hanya Untuk Pengurus"],
+                500
+            );
+        }
+        $result = $admin->get();
+        return $result;
     }
 }
