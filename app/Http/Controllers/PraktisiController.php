@@ -28,7 +28,7 @@ class PraktisiController extends Controller
         ]);
 
         $user->where("city", $validated["pc"]);
-        if($validated["pac"]!=""){
+        if ($validated["pac"] != "") {
             $user->where("districts", $validated["pac"]);
         }
         $result = $user->paginate();
@@ -40,10 +40,32 @@ class PraktisiController extends Controller
         $validated = $this->validate($request, [
             "name" => "required",
             "address" => "required",
+            "birth_place" => "required",
+            "birth_date" => "required",
+            "gender" => "required",
+            "phone" => "required",
+            "karta" => "",
+            "skill" => "",
+            "email" => "required|email",
+            "license" => "required",
+            "training_place" => "required",
+            "training_date" => "required",
+            "job" => "required",
         ]);
         $update = User::where("id", $id)->update([
             "name" => $validated["name"],
             "address" => $validated["address"],
+            "birth_place" => $validated["birth_place"],
+            "birth_date" => $validated["birth_date"],
+            "gender" => $validated["gender"],
+            "phone" => $validated["phone"],
+            "karta" => $validated["karta"],
+            "skill" => $validated["skill"],
+            "email" => $validated["email"],
+            "license" => $validated["license"],
+            "training_place" => $validated["training_place"],
+            "training_date" => $validated["training_date"],
+            "job" => $validated["job"],
         ]);
         return $this->actionResult($update, "praktisi_update");
     }
