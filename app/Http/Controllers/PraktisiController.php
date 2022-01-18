@@ -62,7 +62,7 @@ class PraktisiController extends Controller
             "karta" => $validated["karta"],
             "skill" => $validated["skill"],
             "email" => $validated["email"],
-            "license" => $validated["license"],
+            "piagam" => $validated["license"],
             "training_place" => $validated["training_place"],
             "training_date" => $validated["training_date"],
             "job" => $validated["job"],
