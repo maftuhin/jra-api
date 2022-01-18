@@ -65,7 +65,7 @@ class PraktisiController extends Controller
             "piagam" => $validated["license"],
             "training_place" => $validated["training_place"],
             "training_date" => $validated["training_date"],
-            "job" => $validated["job"],
+            "profession" => $validated["job"],
         ]);
         return $this->actionResult($update, "praktisi_update");
     }
