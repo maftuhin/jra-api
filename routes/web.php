@@ -28,6 +28,7 @@ $router->group(['prefix' => 'praktisi'], function () use ($router) {
     $router->get('data', 'PraktisiController@dataPraktisi');
     $router->get('withCard', 'PraktisiController@praktisiWithCard');
     $router->post('update/{id}', 'PraktisiController@update');
+    $router->get('cardRequest', 'PraktisiController@registerKarta');
 });
 // Home
 $router->group(['prefix' => 'home'], function () use ($router) {

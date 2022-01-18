@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PraktisiController extends Controller
 {
-    public function praktisiWithCard(Request $required)
+    public function praktisiWithCard(User $user, Request $request)
     {
-        $validated = $this->validate($required, [
-            "pc" => "required",
-            "pac" => "required",
-        ]);
-        $data = User::where("city", $validated["pc"])
-            ->where("karta", "!=", "")
-            ->paginate(10);
-        return $this->pagingResponse($data);
+        $user = $user->newQuery();
+        $pc = $request->input("pc");
+        $pac = $request->input("pac");
+
+        $user->select("id", "name", "address", "karta", "gender");
+        $user->where("city", $pc);
+        if ($pac != "") {
+            $user->where("districts", $pac);
+        }
+        $user->where("karta", "!=", "");
+        $result = $user->paginate();
+        return $this->pagingResponse($result);
     }
 
     public function dataPraktisi(User $user, Request $request)
@@ -70,8 +75,19 @@ class PraktisiController extends Controller
         return $this->actionResult($update, "praktisi_update");
     }
 
-    public function registerKarta()
+    public function registerKarta(Request $request)
     {
+        $me = auth()->user();
+        $request->merge(["id" => $me->id]);
 
+        $validated = $this->validate($request, [
+            "id" => "required|unique:card_request,user",
+        ], [
+            "id.unique" => "Anda Sudah Mengajukan Kartu Anggota, Mohon Menunggu",
+        ]);
+        $store = DB::table("card_request")->insert([
+            "user" => $validated["id"],
+        ]);
+        return $this->actionResult($store, "request_karta");
     }
 }
