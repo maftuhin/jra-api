@@ -91,7 +91,7 @@ class AdminController extends Controller
         $role = $me->role;
         $user = $user->newQuery();
         $user->select("id", "name", "address");
-        $user->where("name", $q);
+        $user->where('name', 'LIKE', '%' . $q . '%');
         $user->orderBy("name", "ASC");
 
         if ($role == "PW") {
