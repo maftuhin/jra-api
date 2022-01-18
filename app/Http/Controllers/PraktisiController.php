@@ -19,17 +19,20 @@ class PraktisiController extends Controller
         return $this->pagingResponse($data);
     }
 
-    public function dataPraktisi(Request $request)
+    public function dataPraktisi(User $user, Request $request)
     {
+        $user = $user->newQuery();
         $validated = $this->validate($request, [
             "pc" => "required",
-            "pac" => "required",
+            "pac" => "string",
         ]);
 
-        $data = User::where("city", $validated["pc"])
-            ->where("districts", $validated["pac"])
-            ->paginate(10);
-        return $this->pagingResponse($data);
+        $user->where("city", $validated["pc"]);
+        if($validated["pac"]!=""){
+            $user->where("districts", $validated["pac"]);
+        }
+        $result = $user->paginate();
+        return $this->pagingResponse($result);
     }
 
     public function update($id, Request $request)
