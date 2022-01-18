@@ -156,7 +156,7 @@ class AdminController extends Controller
             );
         }
 
-        $input = User::insert($data);
+        $input = Admin::insert($data);
         return $this->actionResult($input, "add_pengurus");
     }
 }
