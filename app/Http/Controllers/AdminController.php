@@ -137,21 +137,26 @@ class AdminController extends Controller
     {
         $me = auth()->user();
         $validated = $this->validate($request, [
-            "user" => "requeired",
-            "position" => "requeired",
+            "user" => "required",
+            "position" => "required",
         ]);
         $role = $me->role;
+        $data["member"] = $validated["user"];
+        $data["jabatan"] = $validated["position"];
         if ($role == "PW") {
-
+            $data["province"] = $me->province;
         } else if ($role == "PC") {
-
+            $data["city"] = $me->city;
         } else if ($role == "PP") {
-            
+
         } else {
             return response()->json(
                 ["message" => "Hanya Untuk Pengurus"],
                 500
             );
         }
+
+        $input = User::insert($data);
+        return $this->actionResult($input, "add_pengurus");
     }
 }
