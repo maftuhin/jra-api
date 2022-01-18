@@ -59,6 +59,7 @@ $router->group(['prefix' => 'admin'], function () use ($router) {
     $router->get('data', 'AdminController@data');
     $router->get('title', 'AdminController@adminTitle');
     $router->get('user', 'AdminController@userAdmin');
+    $router->post('add', 'AdminController@addAdmin');
 });
 
 $router->group(['prefix' => 'region'], function () use ($router) {

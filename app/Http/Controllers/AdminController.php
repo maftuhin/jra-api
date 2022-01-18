@@ -89,8 +89,8 @@ class AdminController extends Controller
         $me = auth()->user();
         $role = $me->role;
         $user = $user->newQuery();
-        $user->select("id", "name","address");
-        $user->orderBy("name","ASC");
+        $user->select("id", "name", "address");
+        $user->orderBy("name", "ASC");
 
         if ($role == "PW") {
             $user->where("province", $me->province);
@@ -131,5 +131,27 @@ class AdminController extends Controller
         }
         $result = $admin->get();
         return $result;
+    }
+
+    public function addAdmin(Request $request)
+    {
+        $me = auth()->user();
+        $validated = $this->validate($request, [
+            "user" => "requeired",
+            "position" => "requeired",
+        ]);
+        $role = $me->role;
+        if ($role == "PW") {
+
+        } else if ($role == "PC") {
+
+        } else if ($role == "PP") {
+            
+        } else {
+            return response()->json(
+                ["message" => "Hanya Untuk Pengurus"],
+                500
+            );
+        }
     }
 }
