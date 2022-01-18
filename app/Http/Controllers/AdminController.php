@@ -84,12 +84,14 @@ class AdminController extends Controller
         return $data;
     }
 
-    public function userAdmin(User $user)
+    public function userAdmin(User $user, Request $request)
     {
+        $q = $request->input("q");
         $me = auth()->user();
         $role = $me->role;
         $user = $user->newQuery();
         $user->select("id", "name", "address");
+        $user->where("name", $q);
         $user->orderBy("name", "ASC");
 
         if ($role == "PW") {
