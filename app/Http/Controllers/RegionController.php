@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kabupaten;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,15 +81,20 @@ class RegionController extends Controller
         return $data;
     }
 
-    public function filterKabupaten()
+    public function filterKabupaten(Kabupaten $data)
     {
         $user = auth()->user();
-        $data = DB::table("wilayah_kabupaten")
-            ->select(["id", "name"])
+
+        $data = $data->newQuery();
+        $data->select(["id", "name"])
             ->where("provinsi_id", $user->province)
             ->where("visibility", 1)
-            ->orderBy("name", "ASC")->get();
-        return response()->json($data, 200);
+            ->orderBy("name", "ASC");
+        if ($user->role == "PC") {
+            $data->where("id", $user->city);
+        }
+        $result = $data->get();
+        return response()->json($result, 200);
     }
 
     public function filterKecamatan($id)
