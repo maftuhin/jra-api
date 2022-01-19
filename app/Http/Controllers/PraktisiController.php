@@ -90,4 +90,13 @@ class PraktisiController extends Controller
         ]);
         return $this->actionResult($store, "request_karta");
     }
+
+    public function dataCardRequest()
+    {
+        $data = DB::table("card_request")
+            ->select("users.id", "users.name", "users.address")
+            ->join("users", "users.id", "card_request.user")
+            ->paginate();
+        return $this->pagingResponse($data);
+    }
 }

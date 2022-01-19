@@ -98,11 +98,11 @@ class UserController extends Controller
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
+            'karta' => 'string',
         ]);
 
         $gender = $request->input("gender");
         $email = $request->input("email");
-        $phone = $request->input("phone");
         $license = $request->input("license");
         $profession = $request->input("profession");
         $skill = $request->input("skill");
@@ -117,8 +117,9 @@ class UserController extends Controller
 
             $user->name = $validated['name'];
             $user->address = $validated['address'];
-            $user->phone = $phone;
+            $user->phone = $validated["phone"];
             $user->piagam = $license;
+            $user->karta = $validated["karta"];
             $user->gender = $gender;
             $user->skill = $skill;
             $user->profession = $profession;
@@ -137,7 +138,6 @@ class UserController extends Controller
                 $photo = $request->file('photo');
 
                 $storagePath = './images/profiles';
-                $originalFileName = $photo->getClientOriginalName();
                 $fileExtension = $photo->getClientOriginalExtension();
                 $imageFileName = $user->id . '.' . $fileExtension;
 

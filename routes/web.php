@@ -30,6 +30,8 @@ $router->group(['prefix' => 'praktisi'], function () use ($router) {
     $router->post('update/{id}', 'PraktisiController@update');
     $router->get('cardRequest', 'PraktisiController@registerKarta');
 });
+
+$router->get('karta/requestList', 'PraktisiController@dataCardRequest');
 // Home
 $router->group(['prefix' => 'home'], function () use ($router) {
     $router->get('banner', 'HomeController@banner');
