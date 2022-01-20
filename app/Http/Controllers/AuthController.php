@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -65,6 +66,7 @@ class AuthController extends Controller
             "karta" => $validated["karta"],
             "skill" => $validated["skill"],
             "email" => $validated["email"],
+            "password" => Hash::make("123456"),
             "piagam" => $validated["license"],
             "training_place" => $validated["training_place"],
             "training_date" => $validated["training_date"],
