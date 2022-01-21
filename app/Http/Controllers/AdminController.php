@@ -150,7 +150,7 @@ class AdminController extends Controller
         } else if ($role == "PC") {
             $data["city"] = $me->city;
         } else if ($role == "PP") {
-
+            $data["main"] = 1;
         } else {
             return response()->json(
                 ["message" => "Hanya Untuk Pengurus"],
