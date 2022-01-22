@@ -25,7 +25,7 @@ class SocialController extends Controller
     {
         $me = auth()->user();
         $data = $data->newQuery();
-        $data->select("links.id","links.name", "links.link", "socials.title")
+        $data->select("links.id", "links.name", "links.link", "socials.title")
             ->join("socials", "socials.id", "links.social");
         $role = $me->role;
         if ($role == "PW") {
@@ -63,5 +63,11 @@ class SocialController extends Controller
 
         $store = Link::insert($data);
         return $this->actionResult($store, "input_social");
+    }
+
+    public function delete($id)
+    {
+        $delete = Link::find($id)->delete();
+        return $this->actionResult($delete, "delete_social");
     }
 }
