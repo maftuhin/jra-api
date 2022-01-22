@@ -25,7 +25,7 @@ class SocialController extends Controller
     {
         $me = auth()->user();
         $data = $data->newQuery();
-        $data->select("links.name", "links.link", "socials.title")
+        $data->select("links.id","links.name", "links.link", "socials.title")
             ->join("socials", "socials.id", "links.social");
         $role = $me->role;
         if ($role == "PW") {
