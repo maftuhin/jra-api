@@ -21,6 +21,15 @@ class SocialController extends Controller
         return $this->pagingResponse($data);
     }
 
+    public function detail($id)
+    {
+        $data = Link::select("links.id", "links.name", "links.link", "socials.title")
+            ->join("socials", "socials.id", "links.social")
+            ->where("links.id", $id)
+            ->first();
+        return response()->json($data);
+    }
+
     public function data(Link $data)
     {
         $me = auth()->user();
