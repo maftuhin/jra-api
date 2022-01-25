@@ -94,9 +94,11 @@ class PraktisiController extends Controller
 
     public function dataCardRequest()
     {
+        $me = auth()->user();
         $data = DB::table("card_request")
-            ->select("users.id", "users.name", "users.address")
+            ->select("users.id", "users.name", "users.phone", "users.address", "card_request.status")
             ->join("users", "users.id", "card_request.user")
+            ->where("users.city", $me->city)
             ->paginate();
         return $this->pagingResponse($data);
     }
