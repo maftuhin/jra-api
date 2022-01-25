@@ -98,10 +98,10 @@ class UserController extends Controller
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'required|string',
-            'karta' => 'string',
         ]);
 
         $gender = $request->input("gender");
+        $karta = $request->input("karta");
         $email = $request->input("email");
         $license = $request->input("license");
         $profession = $request->input("profession");
@@ -119,7 +119,7 @@ class UserController extends Controller
             $user->address = $validated['address'];
             $user->phone = $validated["phone"];
             $user->piagam = $license;
-            $user->karta = $validated["karta"];
+            $user->karta = $karta;
             $user->gender = $gender;
             $user->skill = $skill;
             $user->profession = $profession;
