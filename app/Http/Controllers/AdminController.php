@@ -139,8 +139,10 @@ class AdminController extends Controller
     {
         $me = auth()->user();
         $validated = $this->validate($request, [
-            "user" => "required",
+            "user" => "required|min:1",
             "position" => "required",
+        ], [
+            "user.min" => "Pilih Praktisi Terlebih Dahulu",
         ]);
         $role = $me->role;
         $data["member"] = $validated["user"];

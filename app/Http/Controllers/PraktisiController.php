@@ -87,6 +87,7 @@ class PraktisiController extends Controller
         ]);
         $store = DB::table("card_request")->insert([
             "user" => $validated["id"],
+            "status" => 0,
         ]);
         return $this->actionResult($store, "request_karta");
     }
