@@ -74,6 +74,21 @@ class SocialController extends Controller
         return $this->actionResult($store, "input_social");
     }
 
+    public function update($id, Request $request)
+    {
+        $validated = $this->validate($request, [
+            "name" => "requeired",
+            "link" => "required",
+        ]);
+
+        $update = Link::where("id", $id)
+            ->update([
+                "name" => $validated["name"],
+                "link" => $validated["link"],
+            ]);
+        return $this->actionResult($update,"update_social");
+    }
+
     public function delete($id)
     {
         $delete = Link::find($id)->delete();

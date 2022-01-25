@@ -105,6 +105,7 @@ $router->group(['prefix' => 'social'], function () use ($router) {
     $router->get('data', 'SocialController@data');
     $router->post('create', 'SocialController@store');
     $router->get('delete/{id}', 'SocialController@delete');
+    $router->post('update/{id}', 'SocialController@update');
 });
 
 $router->group(['prefix' => 'testimoni'], function () use ($router) {
