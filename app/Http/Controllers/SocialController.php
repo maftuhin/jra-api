@@ -77,7 +77,7 @@ class SocialController extends Controller
     public function update($id, Request $request)
     {
         $validated = $this->validate($request, [
-            "name" => "requeired",
+            "name" => "required",
             "link" => "required",
         ]);
 
