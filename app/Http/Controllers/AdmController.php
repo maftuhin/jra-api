@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donation;
+use App\Models\Ianah;
 use App\Models\Suggest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -94,8 +95,8 @@ class AdmController extends Controller
 
     public function inputIanah(Request $request)
     {
+        $me = auth()->user();
         $validated = $this->validate($request, [
-            "pelaksana" => "required",
             "tanggal_pelaksanaan" => "required",
             "tempat_pelatihan" => "required",
             "jumlah_peserta" => "required",
@@ -104,7 +105,6 @@ class AdmController extends Controller
             "code" => "required",
             "photo" => "required",
         ], [
-            "tanggal_pelaksanaan.required" => "Tanggal Pelaksanaan Wajib Diisi",
             "tempat_pelatihan.required" => "Tempat Pelatihan Wajib Diisi",
             "jumlah_peserta.required" => "Jumlah Peserta Wajib Diisi",
             "ianah_peserta.required" => "Ianah Peserta Wajib Diisi",
@@ -124,9 +124,7 @@ class AdmController extends Controller
                 $image = url() . $path . '/' . $imageFileName;
             }
         }
-
-        $store = DB::table("ianah")->insert([
-            "pelaksana" => $validated["pelaksana"],
+        $data = [
             "tanggal" => $validated["tanggal_pelaksanaan"],
             "tempat" => $validated["tempat_pelatihan"],
             "jumlah_peserta" => $validated["jumlah_peserta"],
@@ -135,7 +133,14 @@ class AdmController extends Controller
             "code" => $validated["code"],
             "image" => $image,
             "created_at" => Carbon::now()->timezone("Asia/Jakarta"),
-        ]);
+        ];
+        if ($me->role == "PW") {
+            $data["province"] = $me->province;
+        } else {
+            $data["city"] = $me->city;
+        }
+
+        $store = Ianah::insert($data);
         return $this->actionResult($store, "input_ianah");
     }
 }
