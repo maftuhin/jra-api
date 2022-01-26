@@ -111,19 +111,6 @@ class AdmController extends Controller
             "ianah_syahadah.required" => "Ianah Syahadah Wajib Diisi",
             "photo.required" => "Upload Bukti Photo Terlebih Dahulu",
         ]);
-        $image = null;
-        if ($request->hasFile("photo")) {
-            $photo = $validated["photo"];
-            $path = "/images/ianah/" . $validated["code"];
-            $storagePath = '.' . $path;
-            $fileExtension = $photo->getClientOriginalExtension();
-            $imageFileName = $validated["pelaksana"] . '_' . Carbon::now() . '.' . $fileExtension;
-
-            $fileOutPut = $photo->move($storagePath, $imageFileName);
-            if (is_file($fileOutPut)) {
-                $image = url() . $path . '/' . $imageFileName;
-            }
-        }
         $data = [
             "tanggal" => $validated["tanggal_pelaksanaan"],
             "tempat" => $validated["tempat_pelatihan"],
@@ -131,13 +118,28 @@ class AdmController extends Controller
             "ianah_peserta" => $validated["ianah_peserta"],
             "ianah_syahadah" => $validated["ianah_syahadah"],
             "code" => $validated["code"],
-            "image" => $image,
             "created_at" => Carbon::now()->timezone("Asia/Jakarta"),
         ];
+        $imageName = "";
         if ($me->role == "PW") {
             $data["province"] = $me->province;
+            $imageName = $me->province;
         } else {
             $data["city"] = $me->city;
+            $imageName = $me->city;
+        }
+
+        if ($request->hasFile("photo")) {
+            $photo = $validated["photo"];
+            $path = "/images/ianah/" . $validated["code"];
+            $storagePath = '.' . $path;
+            $fileExtension = $photo->getClientOriginalExtension();
+            $imageFileName = $imageName . '_' . Carbon::now() . '.' . $fileExtension;
+
+            $fileOutPut = $photo->move($storagePath, $imageFileName);
+            if (is_file($fileOutPut)) {
+                $data["image"] = url() . $path . '/' . $imageFileName;
+            }
         }
 
         $store = Ianah::insert($data);
