@@ -102,4 +102,12 @@ class PraktisiController extends Controller
             ->paginate();
         return $this->pagingResponse($data);
     }
+
+    public function changeStatusRequest($id)
+    {
+        $update = DB::table("card_request")
+            ->where("id", $id)
+            ->update(["status" => 1]);
+        return $this->jsonResponse("Success", 200);
+    }
 }

@@ -28,6 +28,11 @@ class Controller extends BaseController
         ]);
     }
 
+    public function jsonResponse($msg, $code = 200)
+    {
+        return response()->json(["message" => $msg], $code);
+    }
+
     protected function actionResult($action, $code)
     {
         if ($action == 1) {
