@@ -39,6 +39,7 @@ $router->group(['prefix' => 'home'], function () use ($router) {
 });
 // User
 $router->group(['prefix' => 'user'], function () use ($router) {
+    $router->get('search', 'UserController@search');
     $router->post('search', 'UserController@search');
     $router->post('detail', 'UserController@detail');
     $router->post('update', 'UserController@update');
