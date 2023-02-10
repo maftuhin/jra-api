@@ -39,7 +39,6 @@ $router->group(['prefix' => 'home'], function () use ($router) {
 });
 // User
 $router->group(['prefix' => 'user'], function () use ($router) {
-    $router->get('search', 'UserController@search');
     $router->post('search', 'UserController@search');
     $router->post('detail', 'UserController@detail');
     $router->post('update', 'UserController@update');
@@ -48,6 +47,8 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->get('status', 'UserController@userStatus');
     $router->post('praktisi', 'UserController@praktisi');
 });
+$router->get('user/search', 'UserController@search');
+$router->get('user/{id}', 'UserController@detail');
 
 $router->group(['prefix' => 'article'], function () use ($router) {
     $router->get('', 'ArticleController@index');
