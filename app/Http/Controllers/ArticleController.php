@@ -29,6 +29,20 @@ class ArticleController extends BaseController
         }
     }
 
+    public function articles(Request $request)
+    {
+        $type = $request->input("code");
+        $article = Article::select("articles.id", "articles.title", "articles.image")
+            ->join("categories", "categories.id", "articles.category")
+            ->where("categories.code", $type)
+            ->get();
+        if ($article->count() > 0) {
+            return response($article);
+        } else {
+            return response(["message" => "tidak ada data"], 500);
+        }
+    }
+
     public function detail($id)
     {
         $article = Article::where("id", "=", $id)->first();

@@ -54,6 +54,7 @@ $router->get('user/{id}', 'UserController@detail');
 
 /* Article */
 $router->get('article', 'ArticleController@index');
+$router->get('articles', 'ArticleController@articles');
 $router->get('article/detail/{id}', 'ArticleController@detail');
 /* End Article */
 
